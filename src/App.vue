@@ -2,7 +2,7 @@
   <div id="app">
     <div v-if="!initialized" id="header">
       <h1>東方夜魔傳（東方闇魔伝）</h1>
-      <img src="@/assets/logo.svg" alt="EDU2021">
+      <img alt="EDU2021" src="@/assets/logo.svg">
       <div id="start-button" @click="initialize">Start</div>
     </div>
     <div id="game" ref="game" :style="mouseHidden">
@@ -128,10 +128,26 @@ a {
   z-index: 9;
 }
 
+@keyframes header-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+#header h1 {
+  animation-name: header-show;
+  animation-duration: 2s;
+}
+
 #header img {
   width: 300px;
   height: auto;
   margin: 50px auto;
+  animation-name: header-show;
+  animation-duration: 15s;
 }
 
 
@@ -144,6 +160,8 @@ a {
   border-radius: 10px;
   margin: 0 auto;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  animation-name: header-show;
+  animation-duration: 2s;
 }
 
 #start-button:hover {
