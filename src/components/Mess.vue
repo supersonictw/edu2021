@@ -14,8 +14,8 @@ export default {
   position: absolute;
   content: " ";
   background: white;
-  width: 50px;
-  height: 50px;
+  width: 3px;
+  height: 15px;
   border-radius: 50px;
 }
 </style>

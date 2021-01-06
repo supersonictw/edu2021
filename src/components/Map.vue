@@ -12,7 +12,5 @@ export default {
 
 <style scoped>
 #map1 {
-  width: 100%;
-  min-height: 760px;
 }
 </style>
