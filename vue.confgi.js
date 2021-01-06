@@ -1,7 +1,7 @@
 module.exports = {
     pages: {
         index: {
-            title: 'edu2021',
+            title: '東方夜魔傳（東方闇魔伝）',
             entry: 'src/main.js',
             template: 'public/index.html',
             filename: 'index.html',

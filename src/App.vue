@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div v-if="!initialized" id="header">
-      <h1>edu2021</h1>
+      <h1>東方夜魔傳（東方闇魔伝）</h1>
+      <img src="@/assets/logo.svg" alt="EDU2021">
       <div id="start-button" @click="initialize">Start</div>
     </div>
     <div id="game" ref="game" :style="mouseHidden">
@@ -127,9 +128,12 @@ a {
   z-index: 9;
 }
 
-#header h1 {
-  margin: 100px auto;
+#header img {
+  width: 300px;
+  height: auto;
+  margin: 50px auto;
 }
+
 
 #start-button {
   width: 100px;

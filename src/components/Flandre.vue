@@ -9,36 +9,33 @@ export default {
     async keyListener() {
       const prefix = 10;
       Object.keys(this.$store.state.keyPool).forEach(key => {
-        switch (key.toLocaleLowerCase()) {
-          case "w":
-          case "arrowup":
+        switch (key) {
+          case "ArrowUp":
             this.$store.dispatch(
                 "setFlandreTopWithPrefix",
                 {direction: true, prefix: prefix}
             );
             break;
-          case "s":
-          case "arrowdown":
+          case "ArrowDown":
             this.$store.dispatch(
                 "setFlandreTopWithPrefix",
                 {direction: false, prefix: prefix}
             );
             break;
-          case "a":
-          case "arrowleft":
+          case "ArrowLeft":
             this.$store.dispatch(
                 "setFlandreLeftWithPrefix",
                 {direction: false, prefix: prefix}
             );
             break;
-          case "d":
-          case "arrowright":
+          case "ArrowRight":
             this.$store.dispatch(
                 "setFlandreLeftWithPrefix",
                 {direction: true, prefix: prefix}
             );
             break;
-          case " ":
+          case "z":
+          case "Z":
             this.$store.dispatch("newMess");
             break;
         }
