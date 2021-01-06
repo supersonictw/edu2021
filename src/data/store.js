@@ -48,7 +48,7 @@ const Store = new Vuex.Store({
         generateMess: (state, uuid) => {
             state.positions.messes[uuid] = {
                 top: state.positions.flandre.top,
-                left: state.positions.flandre.left + 25
+                left: state.positions.flandre.left + 50
             }
         },
         updateMess: (state, {uuid, dot}) => {
@@ -86,7 +86,7 @@ const Store = new Vuex.Store({
             commit("generateMess", uuid);
             let dot = state.positions.flandre.top;
             const handler = function () {
-                dot-=50;
+                dot -= 35;
                 commit("updateMess", {uuid, dot});
                 if (dot > 0) {
                     window.requestAnimationFrame(handler);

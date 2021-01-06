@@ -1,6 +1,5 @@
 <template>
-  <div :style="flandrePosition" class="flandre">
-  </div>
+  <img :style="flandrePosition" alt="Flandre" class="flandre" src="@/assets/flandre.png">
 </template>
 
 <script>
@@ -80,11 +79,8 @@ export default {
 
 <style scoped>
 .flandre {
+  width: 150px;
+  height: 150px;
   position: absolute;
-  content: " ";
-  background: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
 }
 </style>

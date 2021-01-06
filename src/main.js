@@ -11,6 +11,6 @@ Vue.config.productionTip = false
 
 // Create Vue Application
 new Vue({
-  render: (h) => h(App),
-  store: Store,
+    render: (h) => h(App),
+    store: Store,
 }).$mount("#app");

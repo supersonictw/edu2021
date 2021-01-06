@@ -1,16 +1,25 @@
 <template>
   <div id="app">
-    <div v-if="!initialized" id="start-button" @click="initialize">Start</div>
+    <div v-if="!initialized" id="header">
+      <h1>edu2021</h1>
+      <div id="start-button" @click="initialize">Start</div>
+    </div>
     <div id="game" ref="game" :style="mouseHidden">
       <Map>
         <Flandre v-if="initialized"></Flandre>
-        <Mess
-            v-for="(mess, uuid) in returnMess()"
+        <Enemy
+            v-for="(mess, uuid) in returnEnemy"
             :key="uuid"
-            :style="returnMessPosition(mess.top, mess.left)"
+            :style="returnPositionString(mess.top, mess.left)"
+        ></Enemy>
+        <Mess
+            v-for="(mess, uuid) in returnMess"
+            :key="uuid"
+            :style="returnPositionString(mess.top, mess.left)"
         ></Mess>
       </Map>
     </div>
+    <a href="#" @click.prevent="requestFullScreen">Full Screen</a>
     <div class="footer">&copy; 2020 <a href="https://github.com/supersonictw">SuperSonic</a>.</div>
   </div>
 </template>
@@ -18,13 +27,17 @@
 <script>
 import Map from "@/components/Map";
 import Mess from '@/components/Mess'
+import Enemy from '@/components/Enemy'
 import Flandre from '@/components/Flandre'
+
+import Level1 from '@/data/level/one';
 
 export default {
   name: 'App',
   components: {
     Map,
     Mess,
+    Enemy,
     Flandre
   },
   computed: {
@@ -34,16 +47,23 @@ export default {
     mouseHidden() {
       return this.initialized ? 'cursor:none;' : '';
     },
+    returnEnemy() {
+      return Level1;
+    },
+    returnMess() {
+      return this.$store.state.positions.messes;
+    },
     boxWidth() {
-      return this.$refs.game.clientWidth - 50;
+      return this.$refs.game.clientWidth - 150;
     },
     boxHeight() {
-      return this.$refs.game.clientHeight - 50;
+      return this.$refs.game.clientHeight - 150;
     }
   },
   methods: {
     async initialize() {
       if (this.initialized) return;
+      this.requestFullScreen();
       this.$store.commit(
           "setBoxSize",
           {width: this.boxWidth, height: this.boxHeight}
@@ -54,19 +74,34 @@ export default {
       );
       this.$store.commit("activeGame");
     },
-    returnMess() {
-      return this.$store.state.positions.messes;
+    requestFullScreen() {
+      const element = document.getElementById("game");
+      if (element.requestFullscreen) {
+        /* Common */
+        element.requestFullscreen();
+      } else if (element.webkitRequestFullscreen) {
+        /* Safari */
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        /* IE11 */
+        element.msRequestFullscreen();
+      } else {
+        console.warn("The browser is not support requestFullscreen");
+      }
     },
-    returnMessPosition(top, left) {
+    returnPositionString(top, left) {
       return `top: ${top}px; left: ${left}px;`
     },
     start() {
+
+    },
+    flush() {
       this.$forceUpdate();
-      window.requestAnimationFrame(this.start);
+      window.requestAnimationFrame(this.flush);
     }
   },
   created() {
-    this.start();
+    this.flush();
   }
 }
 </script>
@@ -85,17 +120,25 @@ a {
   text-decoration: none;
 }
 
+#header {
+  width: 100%;
+  position: absolute;
+  top: 290px;
+  z-index: 9;
+}
+
+#header h1 {
+  margin: 100px auto;
+}
+
 #start-button {
   width: 100px;
-  position: absolute;
-  top: 720px;
-  right: 50%;
-  z-index: 9;
   background: #40a;
   color: #cff;
   padding: 10px;
   cursor: pointer;
   border-radius: 10px;
+  margin: 0 auto;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
@@ -109,9 +152,9 @@ a {
 
 #game {
   width: 100%;
-  min-height: 760px;
+  min-height: 110vh;
   position: relative;
-  margin: 90px auto;
+  margin-bottom: 90px;
   box-shadow: 0 0 15px rgba(0, 0, 0, .3);
   background: #000;
 }
