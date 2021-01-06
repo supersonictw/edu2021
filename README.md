@@ -30,4 +30,4 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-> (c) 2021 [SuperSonic](https://github.com/supersonictw)
+> (c) 2021 [SuperSonic](https://github.com/supersonictw).
