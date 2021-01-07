@@ -1,12 +1,27 @@
 <template>
-  <div class="enemy">
+  <div :style="position" class="enemy">
   </div>
 </template>
 
 <script>
 export default {
   name: 'Enemy',
-  props: {data: Object}
+  props: ["hashSign"],
+  data: () => ({
+    top: 0,
+    left: 0,
+    metadata: null
+  }),
+  computed: {
+    position() {
+      return `top: ${this.top}px; left: ${this.left}px;`
+    }
+  },
+  mounted() {
+    this.metadata = this.$store.state.positions.enemiesInit[this.hashSign];
+    this.top = this.metadata.start.top * this.$store.state.boxHeight;
+    this.left = this.metadata.start.left * this.$store.state.boxWidth - 30;
+  }
 }
 </script>
 

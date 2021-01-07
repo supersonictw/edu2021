@@ -1,7 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import Constant from "@/data/const";
+
 import {v4 as uuidv4} from 'uuid';
+import {sha256} from "js-sha256";
 
 Vue.use(Vuex);
 
@@ -16,7 +19,8 @@ const Store = new Vuex.Store({
                 top: 710,
                 left: 1
             },
-            messesInit: {}
+            messesInit: {},
+            enemiesInit: {}
         }
     },
     mutations: {
@@ -48,19 +52,26 @@ const Store = new Vuex.Store({
         generateMess: (state, uuid) => {
             state.positions.messesInit[uuid] = {
                 top: state.positions.flandre.top,
-                left: state.positions.flandre.left + 50
+                left: state.positions.flandre.left + Constant.aimPrefix
             }
         },
         revokeMess: (state, uuid) => {
             delete state.positions.messesInit[uuid];
+        },
+        registerEnemy: (state, {hashSign, data}) => {
+            state.positions.enemiesInit[hashSign] = data;
+        },
+        unregisterEnemy: (state, hashSign) => {
+            delete state.positions.enemiesInit[hashSign];
         }
     },
     actions: {
         setFlandreTopWithPrefix: ({commit, state}, {direction, prefix}) => {
             commit("setFlandreTopWithPrefix", {direction, prefix});
-            if (state.positions.flandre.top > state.boxHeight) {
+            const fixValue = Constant.flandre.height / 2;
+            if ((state.positions.flandre.top + fixValue) > state.boxHeight) {
                 const left = state.positions.flandre.left;
-                commit("setFlandrePosition", {top: state.boxHeight, left: left});
+                commit("setFlandrePosition", {top: (state.boxHeight - fixValue), left: left});
             }
             if (state.positions.flandre.top < 0) {
                 const left = state.positions.flandre.left;
@@ -69,18 +80,23 @@ const Store = new Vuex.Store({
         },
         setFlandreLeftWithPrefix: ({commit, state}, {direction, prefix}) => {
             commit("setFlandreLeftWithPrefix", {direction, prefix});
-            if (state.positions.flandre.left > state.boxWidth) {
+            const fixValue = Constant.flandre.height / 2;
+            if ((state.positions.flandre.left + fixValue) > state.boxWidth) {
                 const top = state.positions.flandre.top;
-                commit("setFlandrePosition", {top: top, left: state.boxWidth});
+                commit("setFlandrePosition", {top: top, left: (state.boxWidth - fixValue)});
             }
-            if (state.positions.flandre.left < 0) {
+            if ((state.positions.flandre.left + fixValue) < 0) {
                 const top = state.positions.flandre.top;
-                commit("setFlandrePosition", {top: top, left: 0});
+                commit("setFlandrePosition", {top: top, left: (0 - fixValue)});
             }
         },
         newMess({commit}) {
             const uuid = uuidv4();
             commit("generateMess", uuid);
+        },
+        newEnemy({commit}, {timestamp, data}) {
+            const hashSign = sha256(`${timestamp}_${JSON.stringify(data)}`);
+            commit("registerEnemy", {hashSign, data});
         }
     }
 });

@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import Constant from "@/data/const";
+
 export default {
   name: 'Mess',
   props: ["advanced", "uuid"],
@@ -22,14 +24,12 @@ export default {
       return "visibility:hidden;";
     },
     position() {
-      const top = this.top;
-      const left = this.left;
-      return `top: ${top}px; left: ${left}px;`
+      return `top: ${this.top}px; left: ${this.left}px;`
     }
   },
   methods: {
     move() {
-      this.top -= 35;
+      this.top -= Constant.messStep;
       if (this.top > 0) {
         window.requestAnimationFrame(this.move);
       } else {

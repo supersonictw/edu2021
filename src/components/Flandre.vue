@@ -3,35 +3,36 @@
 </template>
 
 <script>
+import Constant from "@/data/const";
+
 export default {
   name: 'Flandre',
   methods: {
     async keyListener() {
-      const prefix = 10;
       Object.keys(this.$store.state.keyPool).forEach(key => {
         switch (key) {
           case "ArrowUp":
             this.$store.dispatch(
                 "setFlandreTopWithPrefix",
-                {direction: true, prefix: prefix}
+                {direction: true, prefix: Constant.flandre.step}
             );
             break;
           case "ArrowDown":
             this.$store.dispatch(
                 "setFlandreTopWithPrefix",
-                {direction: false, prefix: prefix}
+                {direction: false, prefix: Constant.flandre.step}
             );
             break;
           case "ArrowLeft":
             this.$store.dispatch(
                 "setFlandreLeftWithPrefix",
-                {direction: false, prefix: prefix}
+                {direction: false, prefix: Constant.flandre.step}
             );
             break;
           case "ArrowRight":
             this.$store.dispatch(
                 "setFlandreLeftWithPrefix",
-                {direction: true, prefix: prefix}
+                {direction: true, prefix: Constant.flandre.step}
             );
             break;
           case "z":

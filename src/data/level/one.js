@@ -1,11 +1,15 @@
 export default {
-    19: [
+    12: [
         {
             start: {
-                top: 0,
-                left: 0
+                top: 0.0,
+                left: 0.0
             },
-            mover: (context) => {
+            end: {
+                top: 0.3,
+                left: 1.0
+            },
+            move: (context) => {
                 return {
                     top: context.top + 2,
                     left: context.left + 2
@@ -14,10 +18,14 @@ export default {
         },
         {
             start: {
-                top: 0,
-                left: 0
+                top: 0.0,
+                left: 0.5
             },
-            mover: (context) => {
+            end: {
+                top: 1.0,
+                left: 0.5
+            },
+            move: (context) => {
                 return {
                     top: context.top + 2,
                     left: context.left + 2
@@ -26,10 +34,14 @@ export default {
         },
         {
             start: {
-                top: 0,
-                left: 0
+                top: 0.0,
+                left: 1.0
             },
-            mover: (context) => {
+            end: {
+                top: 0.3,
+                left: 1.0
+            },
+            move: (context) => {
                 return {
                     top: context.top + 2,
                     left: context.left + 2

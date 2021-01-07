@@ -9,12 +9,12 @@
       <Map>
         <Flandre v-if="initialized"></Flandre>
         <Enemy
-            v-for="(mess, uuid) in returnEnemy"
-            :key="uuid"
-            :style="returnPositionString(mess.top, mess.left)"
+            v-for="(_, hashSign) in returnEnemyInit"
+            :key="hashSign"
+            :hash-sign="hashSign"
         ></Enemy>
         <Mess
-            v-for="(_, uuid) in returnMess"
+            v-for="(_, uuid) in returnMessInit"
             :key="uuid"
             :uuid="uuid"
         ></Mess>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import Constant from "@/data/const";
+
 import Map from "@/components/Map";
 import Mess from '@/components/Mess'
 import Enemy from '@/components/Enemy'
@@ -41,6 +43,10 @@ export default {
     Enemy,
     Flandre
   },
+  data: () => ({
+    createTime: 0,
+    progress: 0
+  }),
   computed: {
     initialized() {
       return this.$store.state.initialized;
@@ -48,20 +54,21 @@ export default {
     mouseHidden() {
       return this.initialized ? 'cursor:none;' : '';
     },
-    returnEnemy() {
-      return Level1;
+    returnEnemyInit() {
+      return this.$store.state.positions.enemiesInit;
     },
-    returnMess() {
+    returnMessInit() {
       return this.$store.state.positions.messesInit;
     },
   },
   methods: {
     async initialize() {
       if (this.initialized) return;
-      //this.requestFullScreen();
+      this.requestFullScreen();
       const target = this.$refs.game;
       this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
+      this.createTime = Date.now();
     },
     requestFullScreen() {
       const element = document.getElementById("game");
@@ -82,8 +89,8 @@ export default {
       this.$store.commit(
           "setBoxSize",
           {
-            width: boxWidth - 150,
-            height: boxHeight - 150
+            width: boxWidth,
+            height: boxHeight
           }
       );
       this.setFlandreInitializedPosition(boxWidth, boxHeight);
@@ -92,8 +99,8 @@ export default {
       this.$store.commit(
           "setFlandrePosition",
           {
-            top: (boxHeight - 150),
-            left: (boxWidth - 150) / 2
+            top: (boxHeight - Constant.flandre.height),
+            left: (boxWidth - Constant.flandre.width) / 2
           }
       );
     },
@@ -126,11 +133,19 @@ export default {
           }
       );
     },
-    returnPositionString(top, left) {
-      return `top: ${top}px; left: ${left}px;`
+    enemyExecutor() {
+      const currentTime = Date.now();
+      const time = Math.floor((currentTime - this.createTime) / 1000);
+      if (time in Level1 && time > this.progress) {
+        this.progress = time;
+        Level1[time].forEach(
+            enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})
+        );
+      }
     },
     flush() {
       this.$forceUpdate();
+      this.enemyExecutor();
       window.requestAnimationFrame(this.flush);
     }
   },
