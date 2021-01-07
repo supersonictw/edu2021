@@ -28,7 +28,7 @@ export default {
   top: 0;
   width: 100%;
   height: 4682px;
-  background-repeat:repeat-y;
+  background-repeat: repeat-y;
 }
 
 .left {

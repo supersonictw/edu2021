@@ -16,7 +16,7 @@ const Store = new Vuex.Store({
                 top: 710,
                 left: 1
             },
-            messes: {}
+            messesInit: {}
         }
     },
     mutations: {
@@ -46,16 +46,13 @@ const Store = new Vuex.Store({
             state.positions.flandre.left = direction ? left + prefix : left - prefix;
         },
         generateMess: (state, uuid) => {
-            state.positions.messes[uuid] = {
+            state.positions.messesInit[uuid] = {
                 top: state.positions.flandre.top,
                 left: state.positions.flandre.left + 50
             }
         },
-        updateMess: (state, {uuid, dot}) => {
-            state.positions.messes[uuid].top = dot;
-        },
         revokeMess: (state, uuid) => {
-            delete state.positions.messes[uuid];
+            delete state.positions.messesInit[uuid];
         }
     },
     actions: {
@@ -81,21 +78,10 @@ const Store = new Vuex.Store({
                 commit("setFlandrePosition", {top: top, left: 0});
             }
         },
-        newMess({commit, state}) {
+        newMess({commit}) {
             const uuid = uuidv4();
             commit("generateMess", uuid);
-            let dot = state.positions.flandre.top;
-            const handler = function () {
-                dot -= 35;
-                commit("updateMess", {uuid, dot});
-                if (dot > 0) {
-                    window.requestAnimationFrame(handler);
-                } else {
-                    commit("revokeMess", uuid);
-                }
-            }
-            handler();
-        },
+        }
     }
 });
 

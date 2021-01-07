@@ -1,5 +1,5 @@
 <template>
-  <img :style="flandrePosition" alt="Flandre" class="flandre" src="@/assets/flandre.png">
+  <img :style="position" alt="Flandre" class="flandre" src="@/assets/flandre.png">
 </template>
 
 <script>
@@ -47,7 +47,7 @@ export default {
     }
   },
   computed: {
-    flandrePosition() {
+    position() {
       const obj = this.$store.state.positions.flandre;
       const top = obj.top;
       const left = obj.left;

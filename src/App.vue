@@ -14,9 +14,9 @@
             :style="returnPositionString(mess.top, mess.left)"
         ></Enemy>
         <Mess
-            v-for="(mess, uuid) in returnMess"
+            v-for="(_, uuid) in returnMess"
             :key="uuid"
-            :style="returnPositionString(mess.top, mess.left)"
+            :uuid="uuid"
         ></Mess>
       </Map>
     </div>
@@ -52,10 +52,9 @@ export default {
       return Level1;
     },
     returnMess() {
-      return this.$store.state.positions.messes;
+      return this.$store.state.positions.messesInit;
     },
   },
-  data: () => ({}),
   methods: {
     async initialize() {
       if (this.initialized) return;
@@ -63,8 +62,6 @@ export default {
       const target = this.$refs.game;
       this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
-    },
-    start() {
     },
     requestFullScreen() {
       const element = document.getElementById("game");

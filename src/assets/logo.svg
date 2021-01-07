@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65pt" height="53pt" viewBox="0 0 250 150" version="1.2">
-<g id="surface53829">
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 25 75 L 125 25 L 225 75 L 125 125 L 25 75 "/>
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 50 C 125 50 100 50 100 75 "/>
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 100 75 C 100 75 100 100 125 100 "/>
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 50 C 125 50 150 50 150 75 "/>
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 150 75 C 150 75 150 100 125 100 "/>
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 25 C 125 25 100 25 100 75 "/>
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 100 75 C 100 75 100 125 125 125 "/>
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 25 C 125 25 150 25 150 75 "/>
-<path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;" d="M 150 75 C 150 75 150 125 125 125 "/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" width="65pt" height="53pt"
+     viewBox="0 0 250 150" version="1.2">
+    <g id="surface53829">
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 25 75 L 125 25 L 225 75 L 125 125 L 25 75 "/>
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 125 50 C 125 50 100 50 100 75 "/>
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 100 75 C 100 75 100 100 125 100 "/>
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 125 50 C 125 50 150 50 150 75 "/>
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 150 75 C 150 75 150 100 125 100 "/>
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 125 25 C 125 25 100 25 100 75 "/>
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 100 75 C 100 75 100 125 125 125 "/>
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 125 25 C 125 25 150 25 150 75 "/>
+        <path style="fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(67.892944%,0%,85.333333%);stroke-opacity:1;stroke-miterlimit:10;"
+              d="M 150 75 C 150 75 150 125 125 125 "/>
+    </g>
 </svg>
