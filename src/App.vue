@@ -54,26 +54,17 @@ export default {
     returnMess() {
       return this.$store.state.positions.messes;
     },
-    boxWidth() {
-      return this.$refs.game.clientWidth - 150;
-    },
-    boxHeight() {
-      return this.$refs.game.clientHeight - 150;
-    }
   },
+  data: () => ({}),
   methods: {
     async initialize() {
       if (this.initialized) return;
-      this.requestFullScreen();
-      this.$store.commit(
-          "setBoxSize",
-          {width: this.boxWidth, height: this.boxHeight}
-      );
-      this.$store.commit(
-          "setFlandrePosition",
-          {top: this.boxHeight, left: this.boxWidth / 2}
-      );
+      //this.requestFullScreen();
+      const target = this.$refs.game;
+      this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
+    },
+    start() {
     },
     requestFullScreen() {
       const element = document.getElementById("game");
@@ -90,21 +81,56 @@ export default {
         console.warn("The browser is not support requestFullscreen");
       }
     },
-    updateBoxSize() {
-      const target = document.getElementById("game");
+    setBoxSize(boxWidth, boxHeight) {
       this.$store.commit(
           "setBoxSize",
           {
-            width: target.clientWidth,
-            height: target.clientHeight
+            width: boxWidth - 150,
+            height: boxHeight - 150
+          }
+      );
+      this.setFlandreInitializedPosition(boxWidth, boxHeight);
+    },
+    setFlandreInitializedPosition(boxWidth, boxHeight) {
+      this.$store.commit(
+          "setFlandrePosition",
+          {
+            top: (boxHeight - 150),
+            left: (boxWidth - 150) / 2
+          }
+      );
+    },
+    updateBoxSize() {
+      const target = document.getElementById("game");
+      const currentBoxWidth = target.clientWidth;
+      const currentBoxHeight = target.clientHeight;
+      const previousBoxWidth = this.$store.state.boxWidth;
+      const previousBoxHeight = this.$store.state.boxHeight;
+      this.setBoxSize(currentBoxWidth, currentBoxHeight);
+      this.updateFlandreResizedPosition(
+          currentBoxWidth,
+          currentBoxHeight,
+          previousBoxWidth,
+          previousBoxHeight,
+      );
+    },
+    updateFlandreResizedPosition(
+        currentBoxWidth,
+        currentBoxHeight,
+        previousBoxWidth,
+        previousBoxHeight
+    ) {
+      const currentFlandrePosition = this.$store.state.positions.flandre;
+      this.$store.commit(
+          "setFlandrePosition",
+          {
+            top: currentFlandrePosition.top * (previousBoxHeight / currentBoxHeight),
+            left: currentFlandrePosition.left * (currentBoxWidth / previousBoxWidth)
           }
       );
     },
     returnPositionString(top, left) {
       return `top: ${top}px; left: ${left}px;`
-    },
-    start() {
-
     },
     flush() {
       this.$forceUpdate();
