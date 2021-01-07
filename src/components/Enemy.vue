@@ -10,17 +10,32 @@ export default {
   data: () => ({
     top: 0,
     left: 0,
-    metadata: null
+    progress: 0,
+    mover: null
   }),
   computed: {
     position() {
       return `top: ${this.top}px; left: ${this.left}px;`
     }
   },
+  methods: {
+    move() {
+      this.setPosition(...this.mover(this.progress));
+      if (this.progress < 1) {
+        window.requestAnimationFrame(this.move);
+      } else {
+        this.$store.commit("unregisterEnemy", this.hashSign);
+      }
+      this.progress += 0.01;
+    },
+    setPosition(top, left) {
+      this.top = top * this.$store.state.boxHeight;
+      this.left = left * this.$store.state.boxWidth - 30;
+    }
+  },
   mounted() {
-    this.metadata = this.$store.state.positions.enemiesInit[this.hashSign];
-    this.top = this.metadata.start.top * this.$store.state.boxHeight;
-    this.left = this.metadata.start.left * this.$store.state.boxWidth - 30;
+    this.mover = this.$store.state.positions.enemiesInit[this.hashSign].mover;
+    this.move();
   }
 }
 </script>

@@ -33,14 +33,14 @@ export default {
 
 .left {
   background-image: url("../assets/background/left.png");
-  animation: wave-left 10s linear infinite;
+  animation: wave-left 3s linear infinite;
   background-position: left bottom;
   transform-origin: left bottom;
 }
 
 .right {
   background-image: url("../assets/background/right.png");
-  animation: wave-right 10s linear infinite;
+  animation: wave-right 3s linear infinite;
   background-position: right bottom;
   transform-origin: right bottom;
 }

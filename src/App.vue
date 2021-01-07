@@ -196,7 +196,7 @@ a {
   height: auto;
   margin: 50px auto;
   animation-name: header-show;
-  animation-duration: 15s;
+  animation-duration: 10s;
 }
 
 
