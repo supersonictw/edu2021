@@ -95,12 +95,12 @@ const bullets = {
 }
 
 export default {
-    3: bullets.cross,
-    9: bullets.butterfly,
-    10: bullets.butterfly,
-    11: bullets.butterfly,
-    12: bullets.butterfly,
-    13: bullets.butterfly,
-    14: bullets.butterfly,
-    15: bullets.butterfly,
+    30: bullets.cross,
+    99: bullets.butterfly,
+    100: bullets.butterfly,
+    101: bullets.butterfly,
+    102: bullets.butterfly,
+    103: bullets.butterfly,
+    104: bullets.butterfly,
+    105: bullets.butterfly,
 }

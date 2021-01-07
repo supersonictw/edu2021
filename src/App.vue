@@ -135,7 +135,7 @@ export default {
     },
     enemyExecutor() {
       const currentTime = Date.now();
-      const time = Math.floor((currentTime - this.createTime) / 1000);
+      const time = Math.floor((currentTime - this.createTime) / 100);
       if (time in Level1 && time > this.progress) {
         this.progress = time;
         Level1[time].forEach(
