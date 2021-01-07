@@ -9,30 +9,34 @@ export default {
   name: 'Flandre',
   methods: {
     async keyListener() {
+      let prefix = Constant.flandre.step;
       Object.keys(this.$store.state.keyPool).forEach(key => {
         switch (key) {
+          case "Shift":
+            prefix = Constant.flandre.slowStep;
+            break;
           case "ArrowUp":
             this.$store.dispatch(
                 "setFlandreTopWithPrefix",
-                {direction: true, prefix: Constant.flandre.step}
+                {direction: true, prefix: prefix}
             );
             break;
           case "ArrowDown":
             this.$store.dispatch(
                 "setFlandreTopWithPrefix",
-                {direction: false, prefix: Constant.flandre.step}
+                {direction: false, prefix: prefix}
             );
             break;
           case "ArrowLeft":
             this.$store.dispatch(
                 "setFlandreLeftWithPrefix",
-                {direction: false, prefix: Constant.flandre.step}
+                {direction: false, prefix: prefix}
             );
             break;
           case "ArrowRight":
             this.$store.dispatch(
                 "setFlandreLeftWithPrefix",
-                {direction: true, prefix: Constant.flandre.step}
+                {direction: true, prefix: prefix}
             );
             break;
           case "z":
