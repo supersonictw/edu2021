@@ -90,6 +90,16 @@ export default {
         console.warn("The browser is not support requestFullscreen");
       }
     },
+    updateBoxSize() {
+      const target = document.getElementById("game");
+      this.$store.commit(
+          "setBoxSize",
+          {
+            width: target.clientWidth,
+            height: target.clientHeight
+          }
+      );
+    },
     returnPositionString(top, left) {
       return `top: ${top}px; left: ${left}px;`
     },
@@ -103,6 +113,7 @@ export default {
   },
   created() {
     this.flush();
+    window.addEventListener("resize", this.updateBoxSize);
   }
 }
 </script>
@@ -124,7 +135,7 @@ a {
 #header {
   width: 100%;
   position: absolute;
-  top: 290px;
+  top: 20%;
   z-index: 9;
 }
 
