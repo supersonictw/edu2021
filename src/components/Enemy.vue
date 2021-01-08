@@ -36,16 +36,21 @@ export default {
       this.ping(this.top, this.left);
     },
     async ping(top, left) {
+      const messList = this.$store.state.positions.messes;
       const seal = Object
-          .values(this.$store.state.positions.messes)
-          .find(
+          .values(messList)
+          .findIndex(
               (mess) => mess.top < top &&
                   (
                       mess.left + Constant.aimPrefix >= left &&
                       mess.left <= left + 30
                   )
           );
-      if (seal) this.progress = 1;
+      if (seal > -1) {
+        this.progress = 1;
+        const messUUID = Object.keys(messList)[seal];
+        this.$store.commit("revokeMess", messUUID);
+      }
     }
   },
   async mounted() {

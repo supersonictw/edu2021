@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     move() {
+      if (!(this.uuid in this.$store.state.positions.messes)) return;
       this.top -= Constant.messStep;
       this.$store.commit("updateMess", {uuid: this.uuid, top: this.top});
       if (this.top > 0) {
@@ -39,9 +40,9 @@ export default {
     }
   },
   async mounted() {
-    const initPosition = this.$store.state.positions.messes[this.uuid];
-    this.top = initPosition.top;
-    this.left = initPosition.left;
+    const position = this.$store.state.positions.messes[this.uuid];
+    this.top = position.top;
+    this.left = position.left;
     this.move();
   }
 }
