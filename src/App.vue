@@ -58,7 +58,7 @@ export default {
       return this.$store.state.positions.enemiesInit;
     },
     returnMessInit() {
-      return this.$store.state.positions.messesInit;
+      return this.$store.state.positions.messes;
     },
   },
   methods: {

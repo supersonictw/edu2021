@@ -19,7 +19,7 @@ const Store = new Vuex.Store({
                 top: 710,
                 left: 1
             },
-            messesInit: {},
+            messes: {},
             enemiesInit: {}
         }
     },
@@ -50,13 +50,16 @@ const Store = new Vuex.Store({
             state.positions.flandre.left = direction ? left + prefix : left - prefix;
         },
         generateMess: (state, uuid) => {
-            state.positions.messesInit[uuid] = {
+            state.positions.messes[uuid] = {
                 top: state.positions.flandre.top,
                 left: state.positions.flandre.left + Constant.aimPrefix
             }
         },
+        updateMess: (state, {uuid, top}) => {
+            state.positions.messes[uuid].top = top;
+        },
         revokeMess: (state, uuid) => {
-            delete state.positions.messesInit[uuid];
+            delete state.positions.messes[uuid];
         },
         registerEnemy: (state, {hashSign, data}) => {
             state.positions.enemiesInit[hashSign] = data;

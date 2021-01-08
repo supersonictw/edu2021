@@ -4,6 +4,8 @@
 </template>
 
 <script>
+import Constant from "@/data/const";
+
 export default {
   name: 'Enemy',
   props: ["hashSign"],
@@ -31,9 +33,21 @@ export default {
     setPosition(top, left) {
       this.top = top * this.$store.state.boxHeight;
       this.left = left * this.$store.state.boxWidth - 30;
+      this.ping(this.top, this.left);
+    },
+    async ping(top, left) {
+      const seal = Object
+          .values(this.$store.state.positions.messes)
+          .find((mess) => {
+                console.log(mess, top, left);
+                return (mess.top > top + 30 && mess.top < top - 30) ||
+                    (mess.left + Constant.aimPrefix > left + 30 && mess.left + Constant.aimPrefix < left - 30);
+              }
+          );
+      if (seal) this.progress = 1;
     }
   },
-  mounted() {
+  async mounted() {
     this.mover = this.$store.state.positions.enemiesInit[this.hashSign].mover;
     this.move();
   }

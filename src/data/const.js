@@ -2,7 +2,7 @@ export default {
     flandre: {
         width: 150,
         height: 150,
-        step: 35,
+        step: 25,
         slowStep: 10
     },
     messStep: 35,

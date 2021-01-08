@@ -1,4 +1,5 @@
-function Bezier() {}
+function Bezier() {
+}
 
 Bezier.prototype = {
     one: function (t, p1, p2) {
@@ -42,7 +43,8 @@ Bezier.prototype = {
 
 const bezier = new Bezier();
 const bullets = {
-    cross: [{
+    cross: [
+        {
             name: "Cross - One",
             mover: (progress) => {
                 return bezier.one(
@@ -64,7 +66,8 @@ const bullets = {
             },
         }
     ],
-    butterfly: [{
+    butterfly: [
+        {
             name: "Butterfly - Left",
             mover: (progress) => {
                 return bezier.three(
@@ -89,7 +92,8 @@ const bullets = {
             }
         }
     ],
-    U: [{
+    U: [
+        {
             name: "U - Left",
             mover: (progress) => {
                 return bezier.two(
@@ -112,7 +116,8 @@ const bullets = {
             }
         }
     ],
-    flash: [{
+    flash: [
+        {
             name: "Flash - Left",
             mover: (progress) => {
                 return bezier.three(
@@ -137,7 +142,8 @@ const bullets = {
             }
         }
     ],
-    straight: [{
+    straight: [
+        {
             name: "Straight - Left",
             mover: (progress) => {
                 return bezier.one(

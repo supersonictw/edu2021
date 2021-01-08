@@ -30,6 +30,7 @@ export default {
   methods: {
     move() {
       this.top -= Constant.messStep;
+      this.$store.commit("updateMess", {uuid: this.uuid, top: this.top});
       if (this.top > 0) {
         window.requestAnimationFrame(this.move);
       } else {
@@ -37,8 +38,8 @@ export default {
       }
     }
   },
-  mounted() {
-    const initPosition = this.$store.state.positions.messesInit[this.uuid];
+  async mounted() {
+    const initPosition = this.$store.state.positions.messes[this.uuid];
     this.top = initPosition.top;
     this.left = initPosition.left;
     this.move();
