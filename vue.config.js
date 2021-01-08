@@ -7,7 +7,6 @@ module.exports = {
             filename: 'index.html',
         }
     },
-    publicPath: "WebSite",
     devServer: {
         disableHostCheck: true
     }
