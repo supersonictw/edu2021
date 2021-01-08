@@ -39,9 +39,7 @@ export default {
       const seal = Object
           .values(this.$store.state.positions.messes)
           .find((mess) => {
-                console.log(mess, top, left);
-                return (mess.top > top + 30 && mess.top < top - 30) ||
-                    (mess.left + Constant.aimPrefix > left + 30 && mess.left + Constant.aimPrefix < left - 30);
+                return mess.top < top && (mess.left + Constant.aimPrefix >= left && mess.left <= left + 30);
               }
           );
       if (seal) this.progress = 1;
