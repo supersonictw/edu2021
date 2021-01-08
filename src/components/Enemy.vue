@@ -38,9 +38,12 @@ export default {
     async ping(top, left) {
       const seal = Object
           .values(this.$store.state.positions.messes)
-          .find((mess) => {
-                return mess.top < top && (mess.left + Constant.aimPrefix >= left && mess.left <= left + 30);
-              }
+          .find(
+              (mess) => mess.top < top &&
+                  (
+                      mess.left + Constant.aimPrefix >= left &&
+                      mess.left <= left + 30
+                  )
           );
       if (seal) this.progress = 1;
     }
