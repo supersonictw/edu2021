@@ -4,7 +4,7 @@ This is a TouHou like game, based on Vue.js without any animation library.
 
 ![EDU2021](src/assets/logo.svg)
 
-Respect to `東方紅魔鄉 ～ the Embodiment of Scarlet Devil`.
+Pay tribute to `東方紅魔鄉 ～ the Embodiment of Scarlet Devil`.
 
 
 ## Project setup
