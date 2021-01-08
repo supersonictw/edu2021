@@ -1,5 +1,4 @@
-function Bezier() {
-}
+function Bezier() {}
 
 Bezier.prototype = {
     one: function (t, p1, p2) {
@@ -43,9 +42,8 @@ Bezier.prototype = {
 
 const bezier = new Bezier();
 const bullets = {
-    cross: [
-        {
-            name: "One",
+    cross: [{
+            name: "Cross - One",
             mover: (progress) => {
                 return bezier.one(
                     progress,
@@ -55,7 +53,7 @@ const bullets = {
             }
         },
         {
-            name: "Two",
+            name: "Cross - Two",
             mover: (progress) => {
                 return bezier.two(
                     progress,
@@ -64,17 +62,16 @@ const bullets = {
                     [0.6, 1],
                 )
             },
-        },
+        }
     ],
-    butterfly: [
-        {
+    butterfly: [{
             name: "Butterfly - Left",
             mover: (progress) => {
                 return bezier.three(
                     progress,
                     [0, 0.3],
                     [0.5, 0.3],
-                    [0.6, 0.3],
+                    [0.6, 0],
                     [0.7, 0],
                 )
             }
@@ -84,14 +81,83 @@ const bullets = {
             mover: (progress) => {
                 return bezier.three(
                     progress,
-                    [0, 0.7],
-                    [0.5, 0.7],
-                    [0.6, 0.7],
+                    [0, 0.8],
+                    [0.5, 0.8],
+                    [0.6, 1],
                     [0.7, 1],
                 )
             }
+        }
+    ],
+    U: [{
+            name: "U - Left",
+            mover: (progress) => {
+                return bezier.two(
+                    progress,
+                    [0, 0.2],
+                    [0.5, 0.3],
+                    [0, 0.4]
+                )
+            }
         },
-    ]
+        {
+            name: "U - Right",
+            mover: (progress) => {
+                return bezier.two(
+                    progress,
+                    [0, 0.9],
+                    [0.5, 0.8],
+                    [0, 0.7]
+                )
+            }
+        }
+    ],
+    flash: [{
+            name: "Flash - Left",
+            mover: (progress) => {
+                return bezier.three(
+                    progress,
+                    [0, 0.3],
+                    [0.1, 0.3],
+                    [0.2, 0.3],
+                    [0.5, 0],
+                )
+            }
+        },
+        {
+            name: "Flash - Right",
+            mover: (progress) => {
+                return bezier.three(
+                    progress,
+                    [0, 0.8],
+                    [0.1, 0.8],
+                    [0.2, 0.8],
+                    [0.5, 1],
+                )
+            }
+        }
+    ],
+    straight: [{
+            name: "Straight - Left",
+            mover: (progress) => {
+                return bezier.one(
+                    progress,
+                    [0, 0.3],
+                    [1, 0.3]
+                )
+            }
+        },
+        {
+            name: "Straight - Right",
+            mover: (progress) => {
+                return bezier.one(
+                    progress,
+                    [0, 0.8],
+                    [1, 0.8]
+                )
+            }
+        }
+    ],
 }
 
 export default {
@@ -103,4 +169,29 @@ export default {
     103: bullets.butterfly,
     104: bullets.butterfly,
     105: bullets.butterfly,
+    150: bullets.cross,
+    151: bullets.cross,
+    152: bullets.cross,
+    153: bullets.cross,
+    154: bullets.cross,
+    235: bullets.U,
+    245: bullets.U,
+    255: bullets.U,
+    265: bullets.U,
+    270: bullets.U,
+    273: bullets.U,
+    275: bullets.U,
+    283: bullets.flash,
+    285: bullets.flash,
+    288: bullets.flash,
+    291: bullets.flash,
+    303: bullets.butterfly,
+    304: bullets.butterfly,
+    305: bullets.butterfly,
+    310: bullets.straight,
+    311: bullets.straight,
+    312: bullets.straight,
+    313: bullets.straight,
+    314: bullets.straight,
+    315: bullets.straight,
 }
