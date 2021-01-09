@@ -21,7 +21,7 @@ export default {
     }
   },
   methods: {
-    move() {
+    async move() {
       this.setPosition(...this.mover(this.progress));
       if (this.progress < 1) {
         window.requestAnimationFrame(this.move);
@@ -33,29 +33,28 @@ export default {
     setPosition(top, left) {
       this.top = top * this.$store.state.boxHeight;
       this.left = left * this.$store.state.boxWidth - 30;
-      this.ping(this.top, this.left);
     },
-    async ping(top, left) {
+    async ping() {
       const messList = this.$store.state.positions.messes;
-      const seal = Object
-          .values(messList)
-          .findIndex(
-              (mess) => mess.top < top &&
-                  (
-                      mess.left + Constant.aimPrefix >= left &&
-                      mess.left <= left + 30
-                  )
-          );
+      const top = this.top;
+      const left = this.left;
+      this.checkAlive(messList, top, left);
+      window.requestAnimationFrame(this.ping);
+    },
+    checkAlive(messList, top, left) {
+      const stmt = (mess) => mess.top < top && (mess.left + Constant.aimPrefix >= left && mess.left <= left + 30);
+      const seal = Object.values(messList).findIndex(stmt);
       if (seal > -1) {
         this.progress = 1;
         const messUUID = Object.keys(messList)[seal];
         this.$store.commit("revokeMess", messUUID);
       }
-    }
+    },
   },
-  async mounted() {
+  mounted() {
     this.mover = this.$store.state.positions.enemiesInit[this.hashSign].mover;
     this.move();
+    this.ping();
   }
 }
 </script>
