@@ -52,7 +52,7 @@ export default {
     },
   },
   mounted() {
-    this.mover = this.$store.state.positions.enemiesInit[this.hashSign].mover;
+    this.mover = this.$store.state.positions.enemiesInit[this.hashSign].router;
     this.move();
     this.ping();
   }

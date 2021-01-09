@@ -46,7 +46,7 @@ const flying = {
     cross: [
         {
             name: "Cross - One",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.one(
                     progress,
                     [0, 0.5],
@@ -56,7 +56,7 @@ const flying = {
         },
         {
             name: "Cross - Two",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.two(
                     progress,
                     [0, 0.3],
@@ -69,7 +69,7 @@ const flying = {
     butterfly: [
         {
             name: "Butterfly - Left",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.three(
                     progress,
                     [0, 0.3],
@@ -81,7 +81,7 @@ const flying = {
         },
         {
             name: "Butterfly - Right",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.three(
                     progress,
                     [0, 0.8],
@@ -95,7 +95,7 @@ const flying = {
     U: [
         {
             name: "U - Left",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.two(
                     progress,
                     [0, 0.2],
@@ -106,7 +106,7 @@ const flying = {
         },
         {
             name: "U - Right",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.two(
                     progress,
                     [0, 0.9],
@@ -119,7 +119,7 @@ const flying = {
     flash: [
         {
             name: "Flash - Left",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.three(
                     progress,
                     [0, 0.3],
@@ -131,7 +131,7 @@ const flying = {
         },
         {
             name: "Flash - Right",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.three(
                     progress,
                     [0, 0.8],
@@ -145,7 +145,7 @@ const flying = {
     straight: [
         {
             name: "Straight - Left",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.one(
                     progress,
                     [0, 0.3],
@@ -155,7 +155,7 @@ const flying = {
         },
         {
             name: "Straight - Right",
-            mover: (progress) => {
+            router: (progress) => {
                 return bezier.one(
                     progress,
                     [0, 0.8],
@@ -167,6 +167,19 @@ const flying = {
 }
 
 export default {
+    id: 1,
+    name: "",
+    boss: {
+        name: "",
+        router: (progress) => {
+            return bezier.one(
+                progress,
+                [0, 0.5],
+                [0.6, 0],
+            )
+        },
+        bullets: {}
+    },
     30: flying.cross,
     99: flying.butterfly,
     100: flying.butterfly,
@@ -200,4 +213,5 @@ export default {
     313: flying.straight,
     314: flying.straight,
     315: flying.straight,
+    320: true
 }

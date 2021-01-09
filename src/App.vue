@@ -28,10 +28,13 @@
 <script>
 import Constant from "@/data/const";
 
-import Map from "@/components/Map";
-import Mess from '@/components/Mess'
-import Enemy from '@/components/Enemy'
-import Flandre from '@/components/Flandre'
+import Map from "@/components/Maps/LevelOne";
+import Mess from '@/components/Common/Mess'
+import Enemy from '@/components/Common/Enemy'
+import Flandre from '@/components/Common/Flandre'
+
+import MusicPlayer from "@/components/MusicPlayer";
+import BadApple from "@/assets/audio/level/one/bad_apple.json";
 
 import Level1 from '@/data/level/one';
 
@@ -69,6 +72,7 @@ export default {
       this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
       this.createTime = Date.now();
+      setTimeout(() => MusicPlayer(BadApple), 1000);
     },
     requestFullScreen() {
       const element = document.getElementById("game");
