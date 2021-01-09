@@ -35,6 +35,7 @@ import Flandre from '@/components/Common/Flandre'
 
 import MusicPlayer from "@/components/MusicPlayer";
 import BadApple from "@/assets/audio/level/one/bad_apple.json";
+import UNOwenWasHer from "@/assets/audio/level/one/un_owen_was_her.json";
 
 import Level1 from '@/data/level/one';
 
@@ -148,6 +149,8 @@ export default {
         this.progress = time;
         if (Level1[time] === true) {
           console.log("BOSS");
+          this.musicPlayer.choose(UNOwenWasHer);
+          this.musicPlayer.play();
         } else {
           Level1[time].forEach(
               enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})

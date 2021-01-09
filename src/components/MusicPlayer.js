@@ -1,24 +1,26 @@
 import * as Tone from 'tone'
 
 function MusicPlayer() {
-    this.playing = false;
-    this.music= null;
+    this.music = null;
+    this.synths = [];
 }
 
 MusicPlayer.prototype = {
-    choose (musicJson) {
+    choose(musicJson) {
+        if (this.music) {
+            this.stop();
+        }
         this.music = musicJson;
     },
-    play () {
-        if(!this.music) {
+    play() {
+        if (!this.music) {
             console.error("No music is chosen");
             return;
         }
-        this.playing = true;
         this.music.tracks.forEach((track) => {
-            if(!this.playing) return;
             const now = Tone.now() + 0.5;
             const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+            this.synths.push(synth);
             track.notes.forEach((note) => {
                 synth.triggerAttackRelease(
                     note.name,
@@ -29,10 +31,12 @@ MusicPlayer.prototype = {
             });
         });
     },
-    stop () {
-        this.playing = false;
+    stop() {
+        while (this.synths.length) {
+            const synth = this.synths.shift();
+            synth.disconnect();
+        }
     }
 }
-
 
 export default MusicPlayer;
