@@ -48,7 +48,8 @@ export default {
   },
   data: () => ({
     createTime: 0,
-    progress: 0
+    progress: 0,
+    musicPlayer: new MusicPlayer()
   }),
   computed: {
     initialized() {
@@ -72,7 +73,10 @@ export default {
       this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
       this.createTime = Date.now();
-      setTimeout(() => MusicPlayer(BadApple), 1000);
+      setTimeout(() => {
+        this.musicPlayer.choose(BadApple);
+        this.musicPlayer.play();
+      }, 1000);
     },
     requestFullScreen() {
       const element = document.getElementById("game");
@@ -142,9 +146,13 @@ export default {
       const time = Math.floor((currentTime - this.createTime) / 100);
       if (time in Level1 && time > this.progress) {
         this.progress = time;
-        Level1[time].forEach(
-            enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})
-        );
+        if (Level1[time] === true) {
+          console.log("BOSS");
+        } else {
+          Level1[time].forEach(
+              enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})
+          );
+        }
       }
     },
     flush() {
