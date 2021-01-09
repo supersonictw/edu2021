@@ -227,7 +227,7 @@ a {
 
 #game {
   width: 100%;
-  min-height: 110vh;
+  min-height: 768px;
   position: relative;
   margin-bottom: 90px;
   box-shadow: 0 0 15px rgba(0, 0, 0, .3);
