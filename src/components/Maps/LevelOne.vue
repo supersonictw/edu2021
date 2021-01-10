@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "Level 1"
+  name: "Level_1"
 }
 </script>
 

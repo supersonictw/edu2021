@@ -7,6 +7,9 @@ import Constant from "@/data/const";
 
 export default {
   name: 'Flandre',
+  data: () => ({
+    touchShoot: false
+  }),
   methods: {
     async keyListener() {
       let prefix = Constant.FLANDRE.STEP;
@@ -46,6 +49,12 @@ export default {
         }
       });
     },
+    touchShooter() {
+      this.$store.dispatch("newMess");
+      if(this.touchShoot) {
+        window.requestAnimationFrame(this.touchShooter);
+      }
+    },
     start() {
       this.keyListener();
       window.requestAnimationFrame(this.start);
@@ -73,6 +82,19 @@ export default {
       if (!(char in this.$store.state.keyPool)) {
         this.$store.commit("pressKey", char);
       }
+    });
+    window.addEventListener("touchstart", ()=> {
+      this.touchShoot = true;
+      this.touchShooter();
+    });
+    window.addEventListener("touchmove", e => {
+      this.$store.commit("setFlandrePosition", {
+        top: e.targetTouches[0].clientY,
+        left: e.targetTouches[0].clientX
+      });
+    });
+    window.addEventListener("touchend", () => {
+      this.touchShoot = false;
     });
     this.start();
   }
