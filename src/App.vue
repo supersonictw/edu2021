@@ -76,7 +76,8 @@ export default {
   data: () => ({
     displayOptions: false,
     createTime: 0,
-    progress: 0
+    progress: 0,
+    boss: false
   }),
   computed: {
     initialized() {
@@ -188,10 +189,15 @@ export default {
       const time = Math.floor((currentTime - this.createTime) / 100);
       if (time in Level1 && time > this.progress) {
         this.progress = time;
-        if (Level1[time] === true) {
-          console.log("BOSS");
+        if (Level1[time] === true && this.boss === true){
+          this.boss = false;
+          this.$store.commit("inactiveGame");
+          setTimeout(() => this.musicPlayer.stop(), 3000);
+          this.musicPlayer.stop();
+        } else if (Level1[time] === true) {
+          this.boss = true;
           this.musicPlayer.choose(Music.UNOwenWasHer.key);
-          setTimeout(() => this.musicPlayer.play(), 3000);
+          setTimeout(() => this.musicPlayer.play(), 1000);
         } else {
           Level1[time].forEach(
               enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})

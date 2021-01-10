@@ -213,5 +213,6 @@ export default {
     313: flying.straight,
     314: flying.straight,
     315: flying.straight,
-    320: true
+    320: true,
+    321: true
 }

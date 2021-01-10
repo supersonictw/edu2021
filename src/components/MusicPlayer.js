@@ -31,7 +31,7 @@ MusicPlayer.prototype = {
     },
     play() {
         if (!this.music) {
-            console.error("No music is chosen");
+            console.warn("No music is chosen");
             return;
         }
         if (this.isMidi) {
@@ -62,6 +62,10 @@ MusicPlayer.prototype = {
         this.playing.autostart = true;
     },
     stop() {
+        if (!this.playing) {
+            console.warn("No music is playing");
+            return;
+        }
         if (this.isMidi) {
             this._stopMidi();
         } else {

@@ -29,6 +29,9 @@ const Store = new Vuex.Store({
         activeGame: (state) => {
             state.initialized = true;
         },
+        inactiveGame: (state) => {
+            state.initialized = false;
+        },
         setLevel: (state, level) => {
             if (level > 0 && level <= Constant.MAX_LEVEL) {
                 state.currentLevel = level;
