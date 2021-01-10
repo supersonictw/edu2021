@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div v-if="!initialized" id="header">
-      <h1>東方夜魔傳（東方闇魔伝）</h1>
+      <h1>東方夜魔傳</h1>
+      <p>東方闇魔伝</p>
       <img alt="EDU2021" src="@/assets/logo.svg">
       <div v-if="displayOptions">
         <Options></Options>
