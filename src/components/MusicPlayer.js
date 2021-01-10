@@ -19,12 +19,12 @@ MusicPlayer.prototype = {
             return;
         }
         this.playing = true;
-        for (tarck of this.music.tracks) {
+        for (let tarck of this.music.tracks) {
             if (!this.playing) break;
             const now = Tone.now() + 0.5;
             const synth = new Tone.PolySynth(Tone.Synth).toDestination();
             this.synths.push(synth);
-            for (note of track.notes) {
+            for (let note of track.notes) {
                 synth.triggerAttackRelease(
                     note.name,
                     note.duration,
