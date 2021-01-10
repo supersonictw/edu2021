@@ -51,7 +51,7 @@ export default {
     },
     touchShooter() {
       this.$store.dispatch("newMess");
-      if(this.touchShoot) {
+      if (this.touchShoot) {
         window.requestAnimationFrame(this.touchShooter);
       }
     },
@@ -83,14 +83,16 @@ export default {
         this.$store.commit("pressKey", char);
       }
     });
-    window.addEventListener("touchstart", ()=> {
+    window.addEventListener("touchstart", () => {
       this.touchShoot = true;
       this.touchShooter();
     });
     window.addEventListener("touchmove", e => {
+      const fixWidth = Constant.FLANDRE.WIDTH / 2;
+      const fixHeight = Constant.FLANDRE.HEIGHT / 2;
       this.$store.commit("setFlandrePosition", {
-        top: e.targetTouches[0].clientY,
-        left: e.targetTouches[0].clientX
+        top: e.targetTouches[0].clientY + fixHeight,
+        left: e.targetTouches[0].clientX + fixWidth
       });
     });
     window.addEventListener("touchend", () => {
