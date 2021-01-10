@@ -5,7 +5,8 @@ export default {
         STEP: 25,
         SLOW_STEP: 10
     },
-    MESS_STEP: 35,
+    MESS_STEP: 55,
+    MESS_TIME_GAP: 3,
     AIM_PREFIX: 50,
     MAX_LEVEL: 1
 }

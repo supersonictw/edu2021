@@ -8,7 +8,8 @@ import Constant from "@/data/const";
 export default {
   name: 'Flandre',
   data: () => ({
-    touchShoot: false
+    touchShoot: false,
+    shootDebounce: 0
   }),
   methods: {
     async keyListener() {
@@ -44,15 +45,23 @@ export default {
             break;
           case "z":
           case "Z":
-            this.$store.dispatch("newMess");
+            this.shoot();
             break;
         }
       });
     },
     touchShooter() {
-      this.$store.dispatch("newMess");
+      this.shoot();
       if (this.touchShoot) {
         window.requestAnimationFrame(this.touchShooter);
+      }
+    },
+    shoot() {
+      if(this.shootDebounce < Constant.MESS_TIME_GAP) {
+        this.shootDebounce++;
+      } else {
+        this.shootDebounce = 0;
+        this.$store.dispatch("newMess");
       }
     },
     start() {
