@@ -33,9 +33,7 @@ import Mess from '@/components/Common/Mess'
 import Enemy from '@/components/Common/Enemy'
 import Flandre from '@/components/Common/Flandre'
 
-import MusicPlayer from "@/components/MusicPlayer";
-import BadApple from "@/assets/audio/level/one/bad_apple.json";
-import UNOwenWasHer from "@/assets/audio/level/one/un_owen_was_her.json";
+import { MusicPlayer, Music } from "@/components/MusicPlayer";
 
 import Level1 from '@/data/level/one';
 
@@ -50,7 +48,7 @@ export default {
   data: () => ({
     createTime: 0,
     progress: 0,
-    musicPlayer: new MusicPlayer()
+    musicPlayer: new MusicPlayer(false)
   }),
   computed: {
     initialized() {
@@ -75,7 +73,7 @@ export default {
       this.$store.commit("activeGame");
       this.createTime = Date.now();
       setTimeout(() => {
-        this.musicPlayer.choose(BadApple);
+        this.musicPlayer.choose(Music.BadApple.key);
         this.musicPlayer.play();
       }, 1000);
     },
@@ -149,7 +147,7 @@ export default {
         this.progress = time;
         if (Level1[time] === true) {
           console.log("BOSS");
-          this.musicPlayer.choose(UNOwenWasHer);
+          this.musicPlayer.choose(Music.UNOwenWasHer.key);
           setTimeout(() => this.musicPlayer.play(), 3000);
         } else {
           Level1[time].forEach(
