@@ -3,7 +3,14 @@
     <div v-if="!initialized" id="header">
       <h1>東方夜魔傳（東方闇魔伝）</h1>
       <img alt="EDU2021" src="@/assets/logo.svg">
-      <div id="start-button" @click="initialize">Start</div>
+      <div v-if="displayOptions">
+        <Options></Options>
+        <div class="button" @click="showOptions">Back to title</div>
+      </div>
+      <div v-else>
+        <div class="button" @click="initialize">Start</div>
+        <div class="button" @click="showOptions">Options</div>
+      </div>
     </div>
     <div id="game" ref="game" :style="mouseHidden">
       <Map>
@@ -28,6 +35,7 @@
 <script>
 import Constant from "@/data/const";
 
+import Options from "@/components/Options";
 import Map from "@/components/Maps/LevelOne";
 import Mess from '@/components/Common/Mess'
 import Enemy from '@/components/Common/Enemy'
@@ -40,15 +48,16 @@ import Level1 from '@/data/level/one';
 export default {
   name: 'App',
   components: {
+    Options,
     Map,
     Mess,
     Enemy,
     Flandre
   },
   data: () => ({
+    displayOptions: false,
     createTime: 0,
-    progress: 0,
-    musicPlayer: new MusicPlayer(false)
+    progress: 0
   }),
   computed: {
     initialized() {
@@ -63,6 +72,12 @@ export default {
     returnMessInit() {
       return this.$store.state.positions.messes;
     },
+    musicPlayer() {
+      return new MusicPlayer(this.isMidi);
+    },
+    isMidi() {
+      return localStorage.getItem("isMidi") === "true";
+    }
   },
   methods: {
     async initialize() {
@@ -72,10 +87,11 @@ export default {
       this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
       this.createTime = Date.now();
-      setTimeout(() => {
-        this.musicPlayer.choose(Music.BadApple.key);
-        this.musicPlayer.play();
-      }, 1000);
+      this.musicPlayer.choose(Music.BadApple.key);
+      setTimeout(() => this.musicPlayer.play(), 1000);
+    },
+    showOptions() {
+      this.displayOptions = !this.displayOptions;
     },
     requestFullScreen() {
       const element = document.getElementById("game");
@@ -186,7 +202,7 @@ a {
 #header {
   width: 100%;
   position: absolute;
-  top: 20%;
+  top: 15%;
   z-index: 9;
 }
 
@@ -207,30 +223,30 @@ a {
 #header img {
   width: 300px;
   height: auto;
-  margin: 50px auto;
+  margin: 10px auto;
   animation-name: header-show;
   animation-duration: 10s;
 }
 
 
-#start-button {
+.button {
   width: 100px;
   background: #40a;
   color: #cff;
   padding: 10px;
   cursor: pointer;
   border-radius: 10px;
-  margin: 0 auto;
+  margin: 15px auto;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   animation-name: header-show;
   animation-duration: 2s;
 }
 
-#start-button:hover {
+.button:hover {
   background: rgba(160, 10, 250, 0.9);
 }
 
-#start-button:active {
+.button:active {
   box-shadow: none;
 }
 
