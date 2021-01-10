@@ -6,6 +6,15 @@ This is a TouHou like game, based on Vue.js without any animation library.
 
 Pay tribute to `東方紅魔鄉 ～ the Embodiment of Scarlet Devil`.
 
+## Play Online
+
+Build Status:
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ee52cf35-9073-46e1-b767-7a0f2a17ba2c/deploy-status)](https://app.netlify.com/sites/edu2021/deploys)
+
+Game:
+
+<https://touhou.randychen.tk>
 
 ## Project setup
 ```
