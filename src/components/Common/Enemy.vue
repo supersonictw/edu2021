@@ -39,7 +39,9 @@ export default {
       const top = this.top;
       const left = this.left;
       this.checkAlive(messList, top, left);
-      window.requestAnimationFrame(this.ping);
+      if (this.progress > -1 && this.progress < 1) {
+        window.requestAnimationFrame(this.ping);
+      }
     },
     checkAlive(messList, top, left) {
       const stmt = (mess) => mess.top < top && (mess.left + Constant.aimPrefix >= left && mess.left <= left + 30);
