@@ -8,7 +8,7 @@ import Constant from "@/data/const";
 
 export default {
   name: 'Enemy',
-  props: ["hashSign"],
+  props: ["hashSign", "initData"],
   data: () => ({
     top: 0,
     left: 0,
@@ -23,7 +23,7 @@ export default {
   methods: {
     async move() {
       if (this.progress > -1 && this.progress < 1) {
-        this.setPosition(...this.mover(this.progress));
+        this.setPosition(...this.initData.router(this.progress));
         this.progress += 0.01;
         window.requestAnimationFrame(this.move);
       } else {
@@ -55,7 +55,6 @@ export default {
     },
   },
   mounted() {
-    this.mover = this.$store.state.positions.enemiesInit[this.hashSign].router;
     this.move();
     this.ping();
   }

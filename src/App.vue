@@ -18,9 +18,10 @@
         <div v-if="initialized">
           <Flandre></Flandre>
           <Enemy
-              v-for="(_, hashSign) in returnEnemyInit"
+              v-for="(initData, hashSign) in returnEnemyInit"
               :key="hashSign"
               :hash-sign="hashSign"
+              :init-data="initData"
           ></Enemy>
           <Mess
               v-for="(_, uuid) in returnMessInit"
@@ -31,7 +32,6 @@
           <ScoreBoard>
             <b>Score: {{ score[level] }}</b>
           </ScoreBoard>
-
         </div>
       </Map>
     </div>
