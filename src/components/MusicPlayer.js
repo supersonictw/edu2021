@@ -38,6 +38,8 @@ MusicPlayer.prototype = {
         this.playing = false;
         while (this.synths.length) {
             const synth = this.synths.shift();
+            synth.releaseAll();
+            synth.dispose();
             synth.disconnect();
         }
     }
