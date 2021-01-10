@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="displayOption === 'Sound'">
-      <div v-if="!isMidi">
+      <div v-if="!(get('isMidi') === 'true')">
         <div class="button" @click="set('isMidi', 'true')">Use Midi</div>
       </div>
       <div v-else>
@@ -20,11 +20,6 @@ export default {
   data: () => ({
     displayOption: null
   }),
-  computed: {
-    isMidi() {
-      return localStorage.getItem("isMidi") === "true";
-    }
-  },
   methods: {
     switchMenu(dom) {
       this.displayOption = dom.target.textContent;
@@ -32,6 +27,9 @@ export default {
     set(key, value) {
       localStorage.setItem(key, value);
       this.displayOption = null;
+    },
+    get(key) {
+      return localStorage.getItem(key);
     }
   }
 }
