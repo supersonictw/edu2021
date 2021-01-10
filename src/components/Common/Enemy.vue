@@ -22,13 +22,13 @@ export default {
   },
   methods: {
     async move() {
-      this.setPosition(...this.mover(this.progress));
-      if (this.progress < 1) {
+      if (this.progress > -1 && this.progress < 1) {
+        this.setPosition(...this.mover(this.progress));
+        this.progress += 0.01;
         window.requestAnimationFrame(this.move);
       } else {
         this.$store.commit("unregisterEnemy", this.hashSign);
       }
-      this.progress += 0.01;
     },
     setPosition(top, left) {
       this.top = top * this.$store.state.boxHeight;
@@ -45,7 +45,7 @@ export default {
       const stmt = (mess) => mess.top < top && (mess.left + Constant.aimPrefix >= left && mess.left <= left + 30);
       const seal = Object.values(messList).findIndex(stmt);
       if (seal > -1) {
-        this.progress = 1;
+        this.progress = -1;
         const messUUID = Object.keys(messList)[seal];
         this.$store.commit("revokeMess", messUUID);
       }
