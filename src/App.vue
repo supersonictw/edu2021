@@ -218,6 +218,11 @@ a {
 
 #header h1 {
   animation-name: header-show;
+  animation-duration: 1s;
+}
+
+#header p {
+  animation-name: header-show;
   animation-duration: 2s;
 }
 
@@ -236,7 +241,6 @@ a {
   color: #cff;
   padding: 10px;
   cursor: pointer;
-  border-radius: 10px;
   margin: 15px auto;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   animation-name: header-show;
