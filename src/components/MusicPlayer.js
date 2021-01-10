@@ -24,7 +24,7 @@ function MusicPlayer(midi) {
 
 MusicPlayer.prototype = {
     choose(musicName) {
-        if (this.music) {
+        if (this.music && this.playing) {
             this.stop();
         }
         this.music = Music[musicName];

@@ -89,7 +89,8 @@ const flying = {
                     [0.6, 1],
                     [0.7, 1],
                 )
-            }
+            },
+            bullets: {}
         }
     ],
     U: [
@@ -168,18 +169,7 @@ const flying = {
 
 export default {
     id: 1,
-    name: "",
-    boss: {
-        name: "",
-        router: (progress) => {
-            return bezier.one(
-                progress,
-                [0, 0.5],
-                [0.6, 0],
-            )
-        },
-        bullets: {}
-    },
+    name: "[Unknown]",
     30: flying.cross,
     99: flying.butterfly,
     100: flying.butterfly,

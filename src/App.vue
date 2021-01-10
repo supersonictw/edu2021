@@ -27,9 +27,11 @@
               :key="uuid"
               :uuid="uuid"
           ></Mess>
+          <p id="level-info">Level {{ level }} - {{ levelData.name }}</p>
           <ScoreBoard>
             <b>Score: {{ score[level] }}</b>
           </ScoreBoard>
+
         </div>
       </Map>
     </div>
@@ -100,6 +102,9 @@ export default {
     },
     level() {
       return this.$store.state.currentLevel;
+    },
+    levelData() {
+      return Level1;
     },
     score() {
       return this.$store.state.scores;
@@ -187,19 +192,19 @@ export default {
     enemyExecutor() {
       const currentTime = Date.now();
       const time = Math.floor((currentTime - this.createTime) / 100);
-      if (time in Level1 && time > this.progress) {
+      if (time in this.levelData && time > this.progress) {
         this.progress = time;
-        if (Level1[time] === true && this.boss === true){
+        if (this.levelData[time] === true && this.boss === true) {
           this.boss = false;
           this.$store.commit("inactiveGame");
           setTimeout(() => this.musicPlayer.stop(), 3000);
           this.musicPlayer.stop();
-        } else if (Level1[time] === true) {
+        } else if (this.levelData[time] === true) {
           this.boss = true;
           this.musicPlayer.choose(Music.UNOwenWasHer.key);
           setTimeout(() => this.musicPlayer.play(), 1000);
         } else {
-          Level1[time].forEach(
+          this.levelData[time].forEach(
               enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})
           );
         }
@@ -244,11 +249,12 @@ a {
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
 #header h1 {
+  margin: 0;
   animation-name: header-show;
   animation-duration: 1s;
 }
@@ -265,7 +271,6 @@ a {
   animation-name: header-show;
   animation-duration: 10s;
 }
-
 
 .button {
   width: 100px;
@@ -295,8 +300,22 @@ a {
   background: #000;
 }
 
-h1 {
-  margin: 0;
+#level-info {
+  position: absolute;
+  left: 50px;
+  top: 30px;
+  opacity: 0;
+  animation-name: level-info-show;
+  animation-duration: 8s;
+}
+
+@keyframes level-info-show {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .footer {
