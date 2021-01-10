@@ -9,11 +9,11 @@ export default {
   name: 'Flandre',
   methods: {
     async keyListener() {
-      let prefix = Constant.flandre.step;
+      let prefix = Constant.FLANDRE.STEP;
       Object.keys(this.$store.state.keyPool).forEach(key => {
         switch (key) {
           case "Shift":
-            prefix = Constant.flandre.slowStep;
+            prefix = Constant.FLANDRE.SLOW_STEP;
             break;
           case "ArrowUp":
             this.$store.dispatch(
@@ -84,5 +84,6 @@ export default {
   width: 150px;
   height: 150px;
   position: absolute;
+  z-index: 7;
 }
 </style>

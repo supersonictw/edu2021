@@ -1,10 +1,11 @@
 export default {
-    flandre: {
-        width: 150,
-        height: 150,
-        step: 25,
-        slowStep: 10
+    FLANDRE: {
+        WIDTH: 150,
+        HEIGHT: 150,
+        STEP: 25,
+        SLOW_STEP: 10
     },
-    messStep: 35,
-    aimPrefix: 50
+    MESS_STEP: 35,
+    AIM_PREFIX: 50,
+    MAX_LEVEL: 1
 }

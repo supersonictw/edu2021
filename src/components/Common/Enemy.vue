@@ -44,10 +44,11 @@ export default {
       }
     },
     checkAlive(messList, top, left) {
-      const stmt = (mess) => mess.top < top && (mess.left + Constant.aimPrefix >= left && mess.left <= left + 30);
+      const stmt = (mess) => mess.top < top && (mess.left + Constant.AIM_PREFIX >= left && mess.left <= left + 30);
       const seal = Object.values(messList).findIndex(stmt);
       if (seal > -1) {
         this.progress = -1;
+        this.$store.commit("addScores", 1);
         const messUUID = Object.keys(messList)[seal];
         this.$store.commit("revokeMess", messUUID);
       }

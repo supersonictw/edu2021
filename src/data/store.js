@@ -21,11 +21,26 @@ const Store = new Vuex.Store({
             },
             messes: {},
             enemiesInit: {}
-        }
+        },
+        currentLevel: 0,
+        scores: {}
     },
     mutations: {
         activeGame: (state) => {
             state.initialized = true;
+        },
+        setLevel: (state, level) => {
+            if (level > 0 && level <= Constant.MAX_LEVEL) {
+                state.currentLevel = level;
+            } else {
+                console.warn("Unknown level code: " + level);
+            }
+        },
+        addScores: (state, prefix) => {
+            if (!(state.currentLevel in state.scores)) {
+                state.scores[state.currentLevel] = 0;
+            }
+            state.scores[state.currentLevel] += prefix;
         },
         pressKey: (state, key) => {
             state.keyPool[key] = true;
@@ -52,7 +67,7 @@ const Store = new Vuex.Store({
         generateMess: (state, uuid) => {
             state.positions.messes[uuid] = {
                 top: state.positions.flandre.top,
-                left: state.positions.flandre.left + Constant.aimPrefix
+                left: state.positions.flandre.left + Constant.AIM_PREFIX
             }
         },
         updateMess: (state, {uuid, top}) => {
@@ -71,7 +86,7 @@ const Store = new Vuex.Store({
     actions: {
         setFlandreTopWithPrefix: ({commit, state}, {direction, prefix}) => {
             commit("setFlandreTopWithPrefix", {direction, prefix});
-            const fixValue = Constant.flandre.height / 2;
+            const fixValue = Constant.FLANDRE.HEIGHT / 2;
             if ((state.positions.flandre.top + fixValue) > state.boxHeight) {
                 const left = state.positions.flandre.left;
                 commit("setFlandrePosition", {top: (state.boxHeight - fixValue), left: left});
@@ -83,7 +98,7 @@ const Store = new Vuex.Store({
         },
         setFlandreLeftWithPrefix: ({commit, state}, {direction, prefix}) => {
             commit("setFlandreLeftWithPrefix", {direction, prefix});
-            const fixValue = Constant.flandre.height / 2;
+            const fixValue = Constant.FLANDRE.WIDTH / 2;
             if ((state.positions.flandre.left + fixValue) > state.boxWidth) {
                 const top = state.positions.flandre.top;
                 commit("setFlandrePosition", {top: top, left: (state.boxWidth - fixValue)});

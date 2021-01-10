@@ -30,7 +30,7 @@ export default {
   methods: {
     move() {
       if (!(this.uuid in this.$store.state.positions.messes)) return;
-      this.top -= Constant.messStep;
+      this.top -= Constant.MESS_STEP;
       this.$store.commit("updateMess", {uuid: this.uuid, top: this.top});
       if (this.top > 0) {
         window.requestAnimationFrame(this.move);

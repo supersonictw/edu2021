@@ -15,17 +15,22 @@
     </div>
     <div id="game" ref="game" :style="mouseHidden">
       <Map>
-        <Flandre v-if="initialized"></Flandre>
-        <Enemy
-            v-for="(_, hashSign) in returnEnemyInit"
-            :key="hashSign"
-            :hash-sign="hashSign"
-        ></Enemy>
-        <Mess
-            v-for="(_, uuid) in returnMessInit"
-            :key="uuid"
-            :uuid="uuid"
-        ></Mess>
+        <div v-if="initialized">
+          <Flandre></Flandre>
+          <Enemy
+              v-for="(_, hashSign) in returnEnemyInit"
+              :key="hashSign"
+              :hash-sign="hashSign"
+          ></Enemy>
+          <Mess
+              v-for="(_, uuid) in returnMessInit"
+              :key="uuid"
+              :uuid="uuid"
+          ></Mess>
+          <ScoreBoard>
+            <b>Score: {{ score[level] }}</b>
+          </ScoreBoard>
+        </div>
       </Map>
     </div>
     <a href="#" @click.prevent="requestFullScreen">Full Screen</a>
@@ -37,6 +42,7 @@
 import Constant from "@/data/const";
 
 import Options from "@/components/Options";
+import ScoreBoard from "@/components/ScoreBoard";
 import Map from "@/components/Maps/LevelOne";
 import Mess from '@/components/Common/Mess'
 import Enemy from '@/components/Common/Enemy'
@@ -50,6 +56,7 @@ export default {
   name: 'App',
   components: {
     Options,
+    ScoreBoard,
     Map,
     Mess,
     Enemy,
@@ -78,6 +85,12 @@ export default {
     },
     isMidi() {
       return localStorage.getItem("isMidi") === "true";
+    },
+    level() {
+      return this.$store.state.currentLevel;
+    },
+    score() {
+      return this.$store.state.scores;
     }
   },
   methods: {
@@ -87,6 +100,8 @@ export default {
       const target = this.$refs.game;
       this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
+      this.$store.commit("setLevel", 1);
+      this.$store.commit("addScores", 0);
       this.createTime = Date.now();
       this.musicPlayer.choose(Music.BadApple.key);
       setTimeout(() => this.musicPlayer.play(), 1000);
@@ -123,8 +138,8 @@ export default {
       this.$store.commit(
           "setFlandrePosition",
           {
-            top: (boxHeight - Constant.flandre.height),
-            left: (boxWidth - Constant.flandre.width) / 2
+            top: (boxHeight - Constant.FLANDRE.HEIGHT),
+            left: (boxWidth - Constant.FLANDRE.WIDTH) / 2
           }
       );
     },
