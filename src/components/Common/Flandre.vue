@@ -91,8 +91,8 @@ export default {
       const fixWidth = Constant.FLANDRE.WIDTH / 2;
       const fixHeight = Constant.FLANDRE.HEIGHT / 2;
       this.$store.commit("setFlandrePosition", {
-        top: e.targetTouches[0].clientY + fixHeight,
-        left: e.targetTouches[0].clientX + fixWidth
+        top: e.targetTouches[0].clientY - fixHeight,
+        left: e.targetTouches[0].clientX - fixWidth
       });
     });
     window.addEventListener("touchend", () => {
