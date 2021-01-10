@@ -62,7 +62,7 @@ MusicPlayer.prototype = {
         this.playing.autostart = true;
     },
     stop() {
-        if(this.isMidi) {
+        if (this.isMidi) {
             this._stopMidi();
         } else {
             this._stopOpus();
@@ -82,4 +82,4 @@ MusicPlayer.prototype = {
     }
 }
 
-export { MusicPlayer, Music };
+export {MusicPlayer, Music};

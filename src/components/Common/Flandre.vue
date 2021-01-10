@@ -57,7 +57,7 @@ export default {
       }
     },
     shoot() {
-      if(this.shootDebounce < Constant.MESS_TIME_GAP) {
+      if (this.shootDebounce < Constant.MESS_TIME_GAP) {
         this.shootDebounce++;
       } else {
         this.shootDebounce = 0;

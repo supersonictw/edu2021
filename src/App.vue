@@ -48,7 +48,7 @@ import Mess from '@/components/Common/Mess'
 import Enemy from '@/components/Common/Enemy'
 import Flandre from '@/components/Common/Flandre'
 
-import { MusicPlayer, Music } from "@/components/MusicPlayer";
+import {Music, MusicPlayer} from "@/components/MusicPlayer";
 
 import Level1 from '@/data/level/one';
 
