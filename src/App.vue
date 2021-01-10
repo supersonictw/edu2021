@@ -150,7 +150,7 @@ export default {
         if (Level1[time] === true) {
           console.log("BOSS");
           this.musicPlayer.choose(UNOwenWasHer);
-          this.musicPlayer.play();
+          setTimeout(() => this.musicPlayer.play(), 3000);
         } else {
           Level1[time].forEach(
               enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})
