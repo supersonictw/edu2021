@@ -19,7 +19,7 @@ MusicPlayer.prototype = {
             return;
         }
         this.playing = true;
-        for (let tarck of this.music.tracks) {
+        for (let track of this.music.tracks) {
             if (!this.playing) break;
             const now = Tone.now() + 0.5;
             const synth = new Tone.PolySynth(Tone.Synth).toDestination();
