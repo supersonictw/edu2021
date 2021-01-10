@@ -33,8 +33,19 @@
         </div>
       </Map>
     </div>
-    <a href="#" @click.prevent="requestFullScreen">Full Screen</a>
-    <div class="footer">&copy; 2020 <a href="https://github.com/supersonictw">SuperSonic</a>.</div>
+    <div class="footer">
+      <p id="icons">
+        <a href="#" @click.prevent="requestFullScreen">
+          <img alt="Full Screen" src="@/assets/fullscreen.png" title="Full Screen">
+        </a>
+        <a href="https://github.com/supersonictw/edu2021">
+          <img alt="GitHub" src="@/assets/github.png" title="GitHub Repository">
+        </a>
+      </p>
+      <p id="copyright">
+        &copy; 2020 <a href="https://github.com/supersonictw">SuperSonic</a>.
+      </p>
+    </div>
   </div>
 </template>
 
@@ -274,7 +285,6 @@ a {
   width: 100%;
   min-height: 768px;
   position: relative;
-  margin-bottom: 90px;
   box-shadow: 0 0 15px rgba(0, 0, 0, .3);
   background: #000;
 }
@@ -284,6 +294,11 @@ h1 {
 }
 
 .footer {
-  margin: 50px auto;
+  margin: 35px auto;
+}
+
+#icons img {
+  width: 30px;
+  padding: 10px;
 }
 </style>
