@@ -39,7 +39,6 @@ MusicPlayer.prototype = {
         while (this.synths.length) {
             const synth = this.synths.shift();
             synth.releaseAll();
-            synth.dispose();
             synth.disconnect();
         }
     }
