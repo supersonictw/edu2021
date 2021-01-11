@@ -13,13 +13,15 @@ Author: [`SuperSonic`](https://github.com/supersonictw)
 > I don't have any copyright with the audio and image,
 > most of them are holding by `上海アリス幻樂団`.
 >
-> The project is used for `Academic Research` only, if your use causing any legal problem, I do not assume any responsibility.
+> The project is used for `Academic Research` only,
+> if your use causing any legal problem,
+> I do not assume any responsibility.
 
 > (c) 2021 [SuperSonic](https://github.com/supersonictw).
 
 ## Third Party Software
 
-The software using these libraries for improving the performance and helping the development.
+The software is using these libraries for improving the performance and helping the development.
 
 ### Vue.js
 
