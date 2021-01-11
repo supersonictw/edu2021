@@ -1,21 +1,23 @@
 <template>
   <div id="app">
-    <div v-if="!initialized" id="header">
-      <h1>東方夜魔傳</h1>
-      <p>東方闇魔伝</p>
-      <img alt="EDU2021" src="@/assets/logo.svg">
-      <div v-if="displayOptions">
-        <Options></Options>
-        <div class="button" @click="showOptions">Back to title</div>
-      </div>
-      <div v-else>
-        <div class="button" @click="initialize">Start</div>
-        <div class="button" @click="showOptions">Options</div>
-      </div>
-    </div>
     <div id="game" ref="game" :style="mouseHidden">
       <Map>
-        <div v-if="initialized">
+        <div v-if="!initialized" id="header">
+          <h1>東方夜魔傳</h1>
+          <p>東方闇魔伝</p>
+          <img alt="EDU2021" src="@/assets/logo.svg">
+          <div v-if="displayOptions">
+            <Options></Options>
+            <div class="button" @click="showOptions">Back to title</div>
+          </div>
+          <div v-else>
+            <div class="button" @click="initialize">Start</div>
+            <div class="button" @click="showOptions">Options</div>
+            <div class="button" @click="about">About</div>
+          </div>
+        </div>
+        <Result v-else-if="sealed"></Result>
+        <div v-else>
           <Flandre></Flandre>
           <Enemy
               v-for="(initData, hashSign) in returnEnemyInit"
@@ -56,6 +58,7 @@ import Constant from "@/data/const";
 
 import Options from "@/components/Options";
 import ScoreBoard from "@/components/ScoreBoard";
+import Result from '@/components/Result'
 import Map from "@/components/Maps/LevelOne";
 import Mess from '@/components/Common/Mess'
 import Enemy from '@/components/Common/Enemy'
@@ -70,6 +73,7 @@ export default {
   components: {
     Options,
     ScoreBoard,
+    Result,
     Map,
     Mess,
     Enemy,
@@ -79,7 +83,8 @@ export default {
     displayOptions: false,
     createTime: 0,
     progress: 0,
-    boss: false
+    boss: false,
+    sealed: false
   }),
   computed: {
     initialized() {
@@ -126,6 +131,10 @@ export default {
     showOptions() {
       this.displayOptions = !this.displayOptions;
     },
+    about() {
+      const target = "https://github.com/supersonictw/edu2021"
+      location.assign(target);
+    },
     requestFullScreen() {
       const element = document.getElementById("game");
       if (element.requestFullscreen) {
@@ -139,6 +148,20 @@ export default {
         element.msRequestFullscreen();
       } else {
         console.warn("The browser is not support requestFullscreen");
+      }
+    },
+    requestExitFullScreen() {
+      if (document.exitFullscreen) {
+        /* Common */
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        /* IE11 */
+        document.msExitFullscreen();
+      } else {
+        console.warn("The browser is not support requestExitFullScreen");
       }
     },
     setBoxSize(boxWidth, boxHeight) {
@@ -195,10 +218,9 @@ export default {
       if (time in this.levelData && time > this.progress) {
         this.progress = time;
         if (this.levelData[time] === true && this.boss === true) {
-          this.boss = false;
-          this.$store.commit("inactiveGame");
           setTimeout(() => this.musicPlayer.stop(), 3000);
-          this.musicPlayer.stop();
+          this.boss = false;
+          this.sealed = true;
         } else if (this.levelData[time] === true) {
           this.boss = true;
           this.musicPlayer.choose(Music.UNOwenWasHer.key);
