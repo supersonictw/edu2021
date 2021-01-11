@@ -2,7 +2,7 @@
   <div id="app">
     <div id="game" ref="game" :style="mouseHidden">
       <Map>
-        <div v-if="!initialized" id="header">
+        <div v-if="!initialized" class="banner">
           <h1>東方夜魔傳</h1>
           <p>東方闇魔伝</p>
           <img alt="EDU2021" src="@/assets/logo.svg">
@@ -16,7 +16,10 @@
             <div class="button" @click="about">About</div>
           </div>
         </div>
-        <Result v-else-if="sealed"></Result>
+        <div v-else-if="sealed" class="banner result-box">
+          <Result></Result>
+          <div class="button" @click="inactive">Back to title</div>
+        </div>
         <div v-else>
           <Flandre></Flandre>
           <Enemy
@@ -91,7 +94,7 @@ export default {
       return this.$store.state.initialized;
     },
     mouseHidden() {
-      return this.initialized ? 'cursor:none;' : '';
+      return this.initialized && !this.sealed ? 'cursor:none;' : '';
     },
     returnEnemyInit() {
       return this.$store.state.positions.enemiesInit;
@@ -124,6 +127,7 @@ export default {
       this.$store.commit("activeGame");
       this.$store.commit("setLevel", 1);
       this.$store.commit("addScores", 0);
+      this.progress = 0;
       this.createTime = Date.now();
       this.musicPlayer.choose(Music.BadApple.key);
       setTimeout(() => this.musicPlayer.play(), 1000);
@@ -134,6 +138,11 @@ export default {
     about() {
       const target = "https://github.com/supersonictw/edu2021/blob/main/ABOUT.md";
       location.assign(target);
+    },
+    inactive() {
+      this.sealed = false;
+      this.$store.commit("inactiveGame");
+      this.requestExitFullScreen();
     },
     requestFullScreen() {
       const element = document.getElementById("game");
@@ -259,14 +268,18 @@ a {
   text-decoration: none;
 }
 
-#header {
+.banner {
   width: 100%;
   position: absolute;
   top: 15%;
   z-index: 9;
 }
 
-@keyframes header-show {
+.result-box {
+  top: 0;
+}
+
+@keyframes banner-show {
   from {
     opacity: 0;
   }
@@ -275,22 +288,22 @@ a {
   }
 }
 
-#header h1 {
+.banner h1 {
   margin: 0;
-  animation-name: header-show;
+  animation-name: banner-show;
   animation-duration: 1s;
 }
 
-#header p {
-  animation-name: header-show;
+.banner p {
+  animation-name: banner-show;
   animation-duration: 2s;
 }
 
-#header img {
+.banner img {
   width: 300px;
   height: auto;
   margin: 10px auto;
-  animation-name: header-show;
+  animation-name: banner-show;
   animation-duration: 10s;
 }
 
@@ -302,7 +315,7 @@ a {
   cursor: pointer;
   margin: 15px auto;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  animation-name: header-show;
+  animation-name: banner-show;
   animation-duration: 2s;
 }
 
