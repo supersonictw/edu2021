@@ -132,7 +132,7 @@ export default {
       this.displayOptions = !this.displayOptions;
     },
     about() {
-      const target = "https://github.com/supersonictw/edu2021"
+      const target = "https://github.com/supersonictw/edu2021/blob/main/ABOUT.md";
       location.assign(target);
     },
     requestFullScreen() {
