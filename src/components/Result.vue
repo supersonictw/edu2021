@@ -18,8 +18,8 @@ export default {
   },
   methods: {
     scoreAnimation() {
-      this.displayScore++;
       if (this.displayScore === this.score) return;
+      this.displayScore++;
       setTimeout(this.scoreAnimation, 50);
     }
   },
