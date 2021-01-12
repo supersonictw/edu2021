@@ -142,6 +142,7 @@ export default {
     inactive() {
       this.sealed = false;
       this.$store.commit("inactiveGame");
+      this.$store.commit("resetScores");
       this.requestExitFullScreen();
     },
     requestFullScreen() {

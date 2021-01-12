@@ -39,6 +39,9 @@ const Store = new Vuex.Store({
                 console.warn("Unknown level code: " + level);
             }
         },
+        resetScores: (state) => {
+            state.scores = [];
+        },
         addScores: (state, prefix) => {
             if (!(state.currentLevel in state.scores)) {
                 state.scores[state.currentLevel] = 0;
