@@ -90,7 +90,9 @@ const flying = {
                     [0.7, 1],
                 )
             },
-            bullets: {}
+            chaos: [
+
+            ]
         }
     ],
     U: [
