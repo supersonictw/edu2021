@@ -20,7 +20,7 @@
           <Result></Result>
           <div class="button" @click="inactive">Back to title</div>
         </div>
-        <div v-else-if="deadMessage"  class="banner dead-box">
+        <div v-else-if="deadMessage" class="banner dead-box">
           <h1>そして誰もいなくなるか？</h1>
           <p>東方闇魔伝</p>
           <div class="button" @click="inactive">Back to title</div>
