@@ -39,8 +39,8 @@ export default {
       if (this.progress > -1 && this.progress < 1) {
         const flandre = this.$store.state.positions.flandre;
         const stmt = () =>
-            (flandre.top + Constant.FLANDRE.HEIGHT >= this.top && flandre.top <= this.top) &&
-            (flandre.left + Constant.FLANDRE.WIDTH >= this.left && flandre.left <= this.left);
+            (this.top >= flandre.top + (Constant.FLANDRE.HEIGHT / 5) && this.top <= flandre.top + Constant.FLANDRE.HEIGHT) &&
+            (this.left > flandre.left + (Constant.FLANDRE.WIDTH / 5) && this.left < flandre.left + (Constant.FLANDRE.WIDTH / 2));
         if (stmt()) {
           this.$store.commit("lostHeart");
         }
@@ -62,8 +62,8 @@ export default {
   position: absolute;
   content: " ";
   background: pink;
-  width: 30px;
-  height: 25px;
+  width: 9px;
+  height: 5px;
   border-radius: 50px;
   box-shadow: 0 0 15px rgba(255, 255, 255, .3);
 }

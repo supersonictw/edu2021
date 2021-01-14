@@ -3,8 +3,8 @@ export default {
     FLANDRE: {
         WIDTH: 150,
         HEIGHT: 150,
-        STEP: 25,
-        SLOW_STEP: 10
+        STEP: 15,
+        SLOW_STEP: 5
     },
     MESS_STEP: 55,
     MESS_TIME_GAP: 3,
