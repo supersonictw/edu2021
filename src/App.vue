@@ -20,6 +20,11 @@
           <Result></Result>
           <div class="button" @click="inactive">Back to title</div>
         </div>
+        <div v-else-if="deadMessage"  class="banner dead-box">
+          <h1>そして誰もいなくなるか？</h1>
+          <p>東方闇魔伝</p>
+          <div class="button" @click="inactive">Back to title</div>
+        </div>
         <div v-else>
           <Flandre></Flandre>
           <Enemy
@@ -95,14 +100,15 @@ export default {
     createTime: 0,
     progress: 0,
     boss: false,
-    sealed: false
+    sealed: false,
+    deadMessage: false
   }),
   computed: {
     initialized() {
       return this.$store.state.initialized;
     },
     mouseHidden() {
-      return this.initialized && !this.sealed ? 'cursor:none;' : '';
+      return this.initialized && !this.sealed && !this.deadMessage ? 'cursor:none;' : '';
     },
     returnEnemyInit() {
       return this.$store.state.positions.enemiesInit;
@@ -136,9 +142,11 @@ export default {
       const target = this.$refs.game;
       this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
+      this.$store.commit("resetHeart");
       this.$store.commit("setLevel", 1);
       this.$store.commit("addScores", 0);
       this.progress = 0;
+      this.deadMessage = false;
       this.createTime = Date.now();
       this.musicPlayer.choose(Music.BadApple.key);
       setTimeout(() => this.musicPlayer.play(), 1000);
@@ -256,6 +264,9 @@ export default {
     },
     flush() {
       this.$forceUpdate();
+      if (this.$store.state.heart < 1) {
+        this.deadMessage = true;
+      }
       window.requestAnimationFrame(this.flush);
     }
   },
@@ -290,6 +301,10 @@ a {
 
 .result-box {
   top: 0;
+}
+
+.dead-box h1 {
+  background: #f00;
 }
 
 @keyframes banner-show {

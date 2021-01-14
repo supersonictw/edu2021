@@ -11,6 +11,7 @@ Vue.use(Vuex);
 const Store = new Vuex.Store({
     state: {
         initialized: false,
+        heart: Constant.HEART,
         keyPool: {},
         boxWidth: 0,
         boxHeight: 0,
@@ -32,6 +33,12 @@ const Store = new Vuex.Store({
         },
         inactiveGame: (state) => {
             state.initialized = false;
+        },
+        resetHeart: (state) => {
+            state.heart = Constant.HEART;
+        },
+        lostHeart: (state) => {
+            state.heart--;
         },
         setLevel: (state, level) => {
             if (level > 0 && level <= Constant.MAX_LEVEL) {

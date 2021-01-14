@@ -1,4 +1,5 @@
 export default {
+    HEART: 1,
     FLANDRE: {
         WIDTH: 150,
         HEIGHT: 150,
