@@ -28,6 +28,7 @@
               :hash-sign="hashSign"
               :init-data="initData"
           ></Enemy>
+          <Chaos v-if="false"></Chaos>
           <Mess
               v-for="(_, uuid) in returnMessInit"
               :key="uuid"
@@ -70,10 +71,12 @@ import Flandre from '@/components/Common/Flandre'
 import {Music, MusicPlayer} from "@/components/MusicPlayer";
 
 import Level1 from '@/data/level/one';
+import Chaos from "@/components/Common/Chaos";
 
 export default {
   name: 'App',
   components: {
+    Chaos,
     Options,
     ScoreBoard,
     Result,
@@ -98,6 +101,9 @@ export default {
     },
     returnEnemyInit() {
       return this.$store.state.positions.enemiesInit;
+    },
+    returnChaosInit() {
+      return this.$store.state.positions.chaosInit;
     },
     returnMessInit() {
       return this.$store.state.positions.messes;

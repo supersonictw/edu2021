@@ -38,9 +38,18 @@ export default {
       const messList = this.$store.state.positions.messes;
       const top = this.top;
       const left = this.left;
+      this.chaosHandler(this.progress, top, left);
       this.checkAlive(messList, top, left);
       if (this.progress > -1 && this.progress < 1) {
         window.requestAnimationFrame(this.ping);
+      }
+    },
+    chaosHandler(progress, top, left) {
+      if (progress in this.initData.chaos) {
+        this.$store.dispatch("newChaos", {
+          info: {top, left},
+          data: this.initData.chaos
+        });
       }
     },
     checkAlive(messList, top, left) {

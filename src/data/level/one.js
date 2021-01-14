@@ -1,47 +1,47 @@
-function Bezier() {
-}
-
-Bezier.prototype = {
-    one: function (t, p1, p2) {
-        const [x1, y1] = p1;
-        const [x2, y2] = p2;
-        return [
-            this._one(x1, x2, t),
-            this._one(y1, y2, t)
-        ];
-    },
-    _one: (value1, value2, time) => value1 + (value2 - value1) * time,
-    two: function (t, p1, cp, p2) {
-        const [x1, y1] = p1;
-        const [cx, cy] = cp;
-        const [x2, y2] = p2;
-        return [
-            this._two(x1, x2, cx, t),
-            this._two(y1, y2, cy, t)
-        ];
-    },
-    _two: (value1, value2, control, time) =>
-        (1 - time) * (1 - time) * value1 +
-        2 * time * (1 - time) * control +
-        time * time * value2,
-    three: function (t, p1, cp1, cp2, p2) {
-        const [x1, y1] = p1;
-        const [x2, y2] = p2;
-        const [cx1, cy1] = cp1;
-        const [cx2, cy2] = cp2;
-        return [
-            this._three(x1, x2, cx1, cx2, t),
-            this._three(y1, y2, cy1, cy2, t)
-        ];
-    },
-    _three: (value1, value2, control1, control2, time) =>
-        value1 * (1 - time) * (1 - time) * (1 - time) +
-        3 * control1 * time * (1 - time) * (1 - time) +
-        3 * control2 * time * time * (1 - time) +
-        value2 * time * time * time,
-}
+import Bezier from "@/computes/bezier";
 
 const bezier = new Bezier();
+
+const choas = {
+    flower: [
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [0, 1],
+            )
+        },
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [0.3, 1],
+            )
+        },
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [0.5, 1],
+            )
+        },
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [0.8, 1],
+            )
+        },
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [1, 1],
+            )
+        }
+    ]
+}
+
 const flying = {
     cross: [
         {
@@ -52,6 +52,9 @@ const flying = {
                     [0, 0.5],
                     [0.6, 0],
                 )
+            },
+            chaos: {
+                "0.2": choas.flower,
             }
         },
         {
@@ -64,6 +67,9 @@ const flying = {
                     [0.6, 1],
                 )
             },
+            chaos: {
+                "0.2": choas.flower,
+            }
         }
     ],
     butterfly: [
@@ -77,6 +83,9 @@ const flying = {
                     [0.6, 0],
                     [0.7, 0],
                 )
+            },
+            chaos: {
+                "0.2": choas.flower,
             }
         },
         {
@@ -90,9 +99,9 @@ const flying = {
                     [0.7, 1],
                 )
             },
-            chaos: [
-
-            ]
+            chaos: {
+                "0.2": choas.flower,
+            }
         }
     ],
     U: [
@@ -105,6 +114,9 @@ const flying = {
                     [0.5, 0.3],
                     [0, 0.4]
                 )
+            },
+            chaos: {
+                "0.2": choas.flower,
             }
         },
         {
@@ -116,6 +128,9 @@ const flying = {
                     [0.5, 0.8],
                     [0, 0.7]
                 )
+            },
+            chaos: {
+                "0.2": choas.flower,
             }
         }
     ],
@@ -130,6 +145,9 @@ const flying = {
                     [0.2, 0.3],
                     [0.5, 0],
                 )
+            },
+            chaos: {
+                "0.2": choas.flower,
             }
         },
         {
@@ -142,6 +160,9 @@ const flying = {
                     [0.2, 0.8],
                     [0.5, 1],
                 )
+            },
+            chaos: {
+                "0.2": choas.flower,
             }
         }
     ],
@@ -154,6 +175,9 @@ const flying = {
                     [0, 0.3],
                     [1, 0.3]
                 )
+            },
+            chaos: {
+                "0.2": choas.flower,
             }
         },
         {
@@ -164,6 +188,9 @@ const flying = {
                     [0, 0.8],
                     [1, 0.8]
                 )
+            },
+            chaos: {
+                "0.2": choas.flower,
             }
         }
     ],
@@ -205,6 +232,32 @@ export default {
     313: flying.straight,
     314: flying.straight,
     315: flying.straight,
-    320: true,
-    350: true
+    455: flying.U,
+    465: flying.U,
+    470: flying.U,
+    483: flying.flash,
+    485: flying.flash,
+    488: flying.flash,
+    491: flying.flash,
+    573: flying.U,
+    575: flying.U,
+    591: flying.butterfly,
+    596: flying.butterfly,
+    621: flying.butterfly,
+    625: flying.cross,
+    626: flying.cross,
+    629: flying.straight,
+    630: flying.straight,
+    631: flying.straight,
+    632: flying.straight,
+    633: flying.straight,
+    691: flying.butterfly,
+    692: flying.butterfly,
+    693: flying.butterfly,
+    694: flying.butterfly,
+    695: flying.butterfly,
+    696: flying.butterfly,
+    697: flying.butterfly,
+    720: true,
+    750: true
 }

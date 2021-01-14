@@ -20,7 +20,8 @@ const Store = new Vuex.Store({
                 left: 1
             },
             messes: {},
-            enemiesInit: {}
+            enemiesInit: {},
+            chaosInit: {}
         },
         currentLevel: 0,
         scores: {}
@@ -87,6 +88,16 @@ const Store = new Vuex.Store({
         },
         unregisterEnemy: (state, hashSign) => {
             delete state.positions.enemiesInit[hashSign];
+        },
+        generateChaos: (state, {hashSign, data}) => {
+            state.positions.chaosInit[hashSign] = data;
+        },
+        updateChaos: (state, {hashSign, top, left}) => {
+            state.positions.chaosInit[hashSign].top = top;
+            state.positions.chaosInit[hashSign].left = left;
+        },
+        revokeChaos: (state, hashSign) => {
+            delete state.positions.chaosInit[hashSign];
         }
     },
     actions: {
@@ -121,6 +132,11 @@ const Store = new Vuex.Store({
         newEnemy({commit}, {timestamp, data}) {
             const hashSign = sha256(`${timestamp}_${JSON.stringify(data)}`);
             commit("registerEnemy", {hashSign, data});
+        },
+        newChaos({commit}, {info, router}) {
+            const hashSign = sha256(`${info}_${JSON.stringify(router)}`);
+            const data = {info, router};
+            commit("generateChaos", {hashSign, data});
         }
     }
 });
