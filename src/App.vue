@@ -268,8 +268,9 @@ export default {
     },
     flush() {
       this.$forceUpdate();
-      if (this.$store.state.heart < 1) {
+      if (this.$store.state.heart < 1 && !this.deadMessage) {
         this.deadMessage = true;
+        setTimeout(() => this.musicPlayer.stop(), 3000);
       }
       window.requestAnimationFrame(this.flush);
     }
