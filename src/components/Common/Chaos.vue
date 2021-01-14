@@ -4,6 +4,8 @@
 </template>
 
 <script>
+import Constant from "@/data/const";
+
 export default {
   name: "Chaos",
   props: ["hashSign", "initData"],
@@ -27,6 +29,13 @@ export default {
         window.requestAnimationFrame(this.move);
       } else {
         this.$store.commit("revokeChaos", this.hashSign);
+      }
+      const flandre = this.$store.state.positions.flandre;
+      const stmt = () =>
+          (flandre.top + Constant.FLANDRE.HEIGHT >= this.top && flandre.top <= this.top + 30) &&
+          (flandre.left + Constant.FLANDRE.WIDTH >= this.left && flandre.left <= this.left + 30);
+      if (stmt()) {
+        this.$store.commit("inactiveGame");
       }
     },
     setPosition(top, left) {

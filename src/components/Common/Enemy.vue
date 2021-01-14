@@ -36,13 +36,6 @@ export default {
       this.top = top * this.$store.state.boxHeight;
       this.left = left * this.$store.state.boxWidth - 30;
     },
-    async ping() {
-      const messList = this.$store.state.positions.messes;
-      this.checkAlive(messList, this.top, this.left);
-      if (this.progress > -1 && this.progress < 1) {
-        window.requestAnimationFrame(this.ping);
-      }
-    },
     chaosHandler(progress, top, left) {
       const status = Number(progress).toFixed(2).toString();
       if (status in this.initData.chaos) {
@@ -54,6 +47,13 @@ export default {
                   router
                 })
         );
+      }
+    },
+    async ping() {
+      const messList = this.$store.state.positions.messes;
+      this.checkAlive(messList, this.top, this.left);
+      if (this.progress > -1 && this.progress < 1) {
+        window.requestAnimationFrame(this.ping);
       }
     },
     checkAlive(messList, top, left) {
