@@ -39,8 +39,8 @@ export default {
       if (this.progress > -1 && this.progress < 1) {
         const flandre = this.$store.state.positions.flandre;
         const stmt = () =>
-            (flandre.top + Constant.FLANDRE.HEIGHT >= this.top && flandre.top <= this.top + 30) &&
-            (flandre.left + Constant.FLANDRE.WIDTH >= this.left && flandre.left <= this.left + 30);
+            (flandre.top + Constant.FLANDRE.HEIGHT >= this.top && flandre.top <= this.top) &&
+            (flandre.left + Constant.FLANDRE.WIDTH >= this.left && flandre.left <= this.left);
         if (stmt()) {
           this.$store.commit("lostHeart");
         }
