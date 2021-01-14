@@ -33,6 +33,10 @@ const Store = new Vuex.Store({
         },
         inactiveGame: (state) => {
             state.initialized = false;
+            state.positions.messes = {}
+            state.positions.keyPool = {}
+            state.positions.chaosInit = {}
+            state.positions.enemiesInit = {}
         },
         resetHeart: (state) => {
             state.heart = Constant.HEART;

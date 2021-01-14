@@ -22,7 +22,7 @@
         </div>
         <div v-else-if="deadMessage" class="banner dead-box">
           <h1>そして誰もいなくなるか？</h1>
-          <p>東方闇魔伝</p>
+          <p>Flandre has been sealed.</p>
           <div class="button" @click="inactive">Back to title</div>
         </div>
         <div v-else>
@@ -148,6 +148,7 @@ export default {
       this.progress = 0;
       this.deadMessage = false;
       this.createTime = Date.now();
+      this.enemyExecutor();
       this.musicPlayer.choose(Music.BadApple.key);
       setTimeout(() => this.musicPlayer.play(), 1000);
     },
@@ -242,6 +243,9 @@ export default {
       );
     },
     enemyExecutor() {
+      if (this.$store.state.heart < 1) {
+        return;
+      }
       const timestamp = Date.now();
       const time = Math.floor((timestamp - this.createTime) / 100);
       if (time in this.levelData && time > this.progress) {
@@ -272,7 +276,6 @@ export default {
   },
   created() {
     this.flush();
-    this.enemyExecutor();
     window.addEventListener("resize", this.updateBoxSize);
   }
 }
@@ -303,8 +306,12 @@ a {
   top: 0;
 }
 
+.dead-box {
+  top: 250px;
+}
+
 .dead-box h1 {
-  background: #f00;
+  background: #d30;
 }
 
 @keyframes banner-show {

@@ -46,6 +46,22 @@ const chaos = {
                 [1, 1],
             )
         }
+    ],
+    antenna: [
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [0, start[1] + 0.3],
+            )
+        },
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [0, start[1] + 0.8],
+            )
+        }
     ]
 }
 
@@ -92,7 +108,7 @@ const flying = {
                 )
             },
             chaos: {
-                "0.20": chaos.flower,
+                "0.20": chaos.antenna,
             }
         },
         {
