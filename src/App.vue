@@ -278,6 +278,9 @@ export default {
   created() {
     this.flush();
     window.addEventListener("resize", this.updateBoxSize);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.updateBoxSize);
   }
 }
 </script>

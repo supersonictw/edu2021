@@ -49,6 +49,7 @@ export default {
             break;
         }
       });
+      window.requestAnimationFrame(this.keyListener);
     },
     touchShooter() {
       this.shoot();
@@ -64,9 +65,34 @@ export default {
         this.$store.dispatch("newMess");
       }
     },
-    start() {
-      this.keyListener();
-      window.requestAnimationFrame(this.start);
+    keyUpEvent(event) {
+      event.preventDefault();
+      const char = event.key || String.fromCharCode(event.keyCode);
+      if (char in this.$store.state.keyPool) {
+        this.$store.commit("releaseKey", char);
+      }
+    },
+    keyDownEvent(event) {
+      event.preventDefault();
+      const char = event.key || String.fromCharCode(event.keyCode);
+      if (!(char in this.$store.state.keyPool)) {
+        this.$store.commit("pressKey", char);
+      }
+    },
+    touchStartEvent() {
+      this.touchShoot = true;
+      this.touchShooter();
+    },
+    touchMoveEvent(event) {
+      const fixWidth = Constant.FLANDRE.WIDTH / 2;
+      const fixHeight = Constant.FLANDRE.HEIGHT / 2;
+      this.$store.commit("setFlandrePosition", {
+        top: event.targetTouches[0].clientY - fixHeight,
+        left: event.targetTouches[0].clientX - fixWidth
+      });
+    },
+    touchEndEvent() {
+      this.touchShoot = false;
     }
   },
   computed: {
@@ -78,36 +104,20 @@ export default {
     }
   },
   created() {
-    window.addEventListener("keyup", e => {
-      e.preventDefault();
-      const char = e.key || String.fromCharCode(e.keyCode);
-      if (char in this.$store.state.keyPool) {
-        this.$store.commit("releaseKey", char);
-      }
-    });
-    window.addEventListener("keydown", e => {
-      e.preventDefault();
-      const char = e.key || String.fromCharCode(e.keyCode);
-      if (!(char in this.$store.state.keyPool)) {
-        this.$store.commit("pressKey", char);
-      }
-    });
-    window.addEventListener("touchstart", () => {
-      this.touchShoot = true;
-      this.touchShooter();
-    });
-    window.addEventListener("touchmove", e => {
-      const fixWidth = Constant.FLANDRE.WIDTH / 2;
-      const fixHeight = Constant.FLANDRE.HEIGHT / 2;
-      this.$store.commit("setFlandrePosition", {
-        top: e.targetTouches[0].clientY - fixHeight,
-        left: e.targetTouches[0].clientX - fixWidth
-      });
-    });
-    window.addEventListener("touchend", () => {
-      this.touchShoot = false;
-    });
-    this.start();
+    window.addEventListener("keyup", this.keyUpEvent);
+    window.addEventListener("keydown", this.keyDownEvent);
+    window.addEventListener("touchstart", this.touchStartEvent);
+    window.addEventListener("touchmove", this.touchMoveEvent);
+    window.addEventListener("touchend", this.touchEndEvent);
+    this.keyListener();
+  },
+  destroyed() {
+    window.removeEventListener("keyup", this.keyUpEvent);
+    window.removeEventListener("keydown", this.keyDownEvent);
+    window.removeEventListener("touchstart", this.touchStartEvent);
+    window.removeEventListener("touchmove", this.touchMoveEvent);
+    window.removeEventListener("touchend", this.touchEndEvent);
+    this.$store.commit("clearAllKeys");
   }
 }
 </script>
