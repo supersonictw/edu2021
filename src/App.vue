@@ -28,7 +28,12 @@
               :hash-sign="hashSign"
               :init-data="initData"
           ></Enemy>
-          <Chaos v-if="false"></Chaos>
+          <Chaos
+              v-for="(initData, hashSign) in returnChaosInit"
+              :key="hashSign"
+              :hash-sign="hashSign"
+              :init-data="initData"
+          ></Chaos>
           <Mess
               v-for="(_, uuid) in returnMessInit"
               :key="uuid"
@@ -229,8 +234,8 @@ export default {
       );
     },
     enemyExecutor() {
-      const currentTime = Date.now();
-      const time = Math.floor((currentTime - this.createTime) / 100);
+      const timestamp = Date.now();
+      const time = Math.floor((timestamp - this.createTime) / 100);
       if (time in this.levelData && time > this.progress) {
         this.progress = time;
         if (this.levelData[time] === true && this.boss === true) {
@@ -243,19 +248,20 @@ export default {
           setTimeout(() => this.musicPlayer.play(), 1000);
         } else {
           this.levelData[time].forEach(
-              enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})
+              data => this.$store.dispatch("newEnemy", {timestamp, data})
           );
         }
       }
+      setTimeout(this.enemyExecutor, 10);
     },
     flush() {
       this.$forceUpdate();
-      this.enemyExecutor();
       window.requestAnimationFrame(this.flush);
     }
   },
   created() {
     this.flush();
+    this.enemyExecutor();
     window.addEventListener("resize", this.updateBoxSize);
   }
 }

@@ -21,11 +21,12 @@ export default {
   methods: {
     async move() {
       if (this.progress > -1 && this.progress < 1) {
-        this.setPosition(...this.initData.router(this.progress));
+        const computedPosition = this.initData.router(this.initData.info, this.progress);
+        this.setPosition(...computedPosition);
         this.progress += 0.01;
         window.requestAnimationFrame(this.move);
       } else {
-        this.$store.commit("unregisterChaos", this.hashSign);
+        this.$store.commit("revokeChaos", this.hashSign);
       }
     },
     setPosition(top, left) {
@@ -40,5 +41,13 @@ export default {
 </script>
 
 <style scoped>
-
+.chaos {
+  position: absolute;
+  content: " ";
+  background: pink;
+  width: 30px;
+  height: 25px;
+  border-radius: 50px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, .3);
+}
 </style>

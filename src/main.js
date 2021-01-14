@@ -9,7 +9,8 @@ import Store from "./data/store.js";
 
 // The snippet is only used for analyzing the visitor with Google Analytics
 import VueGtag from "vue-gtag";
-Vue.use(VueGtag, { config: { id: "G-FDNELQW7T0" } });
+
+Vue.use(VueGtag, {config: {id: "G-FDNELQW7T0"}});
 
 // Vue Settings
 Vue.config.productionTip = false

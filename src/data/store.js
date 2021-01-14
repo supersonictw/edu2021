@@ -130,11 +130,11 @@ const Store = new Vuex.Store({
             commit("generateMess", uuid);
         },
         newEnemy({commit}, {timestamp, data}) {
-            const hashSign = sha256(`${timestamp}_${JSON.stringify(data)}`);
+            const hashSign = "enemy_" + sha256(`${timestamp}_${JSON.stringify(data)}`);
             commit("registerEnemy", {hashSign, data});
         },
-        newChaos({commit}, {info, router}) {
-            const hashSign = sha256(`${info}_${JSON.stringify(router)}`);
+        newChaos({commit}, {operator, info, router}) {
+            const hashSign = "chaos_" + sha256(`${operator}_${JSON.stringify(info)}_${JSON.stringify(router)}`);
             const data = {info, router};
             commit("generateChaos", {hashSign, data});
         }

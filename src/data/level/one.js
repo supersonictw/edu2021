@@ -2,8 +2,22 @@ import Bezier from "@/computes/bezier";
 
 const bezier = new Bezier();
 
-const choas = {
+const chaos = {
     flower: [
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [0, 0],
+            )
+        },
+        (start, progress) => {
+            return bezier.one(
+                progress,
+                start,
+                [0, 0.5],
+            )
+        },
         (start, progress) => {
             return bezier.one(
                 progress,
@@ -15,21 +29,14 @@ const choas = {
             return bezier.one(
                 progress,
                 start,
-                [0.3, 1],
+                [1, 0],
             )
         },
         (start, progress) => {
             return bezier.one(
                 progress,
                 start,
-                [0.5, 1],
-            )
-        },
-        (start, progress) => {
-            return bezier.one(
-                progress,
-                start,
-                [0.8, 1],
+                [1, 0.5],
             )
         },
         (start, progress) => {
@@ -54,7 +61,7 @@ const flying = {
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         },
         {
@@ -68,7 +75,7 @@ const flying = {
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         }
     ],
@@ -85,7 +92,7 @@ const flying = {
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         },
         {
@@ -100,7 +107,7 @@ const flying = {
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         }
     ],
@@ -110,13 +117,13 @@ const flying = {
             router: (progress) => {
                 return bezier.two(
                     progress,
-                    [0, 0.2],
+                    [0, 0.20],
                     [0.5, 0.3],
                     [0, 0.4]
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         },
         {
@@ -130,7 +137,7 @@ const flying = {
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         }
     ],
@@ -142,12 +149,12 @@ const flying = {
                     progress,
                     [0, 0.3],
                     [0.1, 0.3],
-                    [0.2, 0.3],
+                    [0.20, 0.3],
                     [0.5, 0],
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         },
         {
@@ -157,12 +164,12 @@ const flying = {
                     progress,
                     [0, 0.8],
                     [0.1, 0.8],
-                    [0.2, 0.8],
+                    [0.20, 0.8],
                     [0.5, 1],
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         }
     ],
@@ -177,7 +184,7 @@ const flying = {
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         },
         {
@@ -190,7 +197,7 @@ const flying = {
                 )
             },
             chaos: {
-                "0.2": choas.flower,
+                "0.20": chaos.flower,
             }
         }
     ],
