@@ -20,6 +20,11 @@
           <Result></Result>
           <div class="button" @click="inactive">Back to title</div>
         </div>
+        <div v-else-if="deadMessage" class="banner dead-box">
+          <h1>そして誰もいなくなるか？</h1>
+          <p>Flandre has been sealed.</p>
+          <div class="button" @click="inactive">Back to title</div>
+        </div>
         <div v-else>
           <Flandre></Flandre>
           <Enemy
@@ -28,6 +33,12 @@
               :hash-sign="hashSign"
               :init-data="initData"
           ></Enemy>
+          <Chaos
+              v-for="(initData, hashSign) in returnChaosInit"
+              :key="hashSign"
+              :hash-sign="hashSign"
+              :init-data="initData"
+          ></Chaos>
           <Mess
               v-for="(_, uuid) in returnMessInit"
               :key="uuid"
@@ -70,10 +81,12 @@ import Flandre from '@/components/Common/Flandre'
 import {Music, MusicPlayer} from "@/components/MusicPlayer";
 
 import Level1 from '@/data/level/one';
+import Chaos from "@/components/Common/Chaos";
 
 export default {
   name: 'App',
   components: {
+    Chaos,
     Options,
     ScoreBoard,
     Result,
@@ -87,17 +100,21 @@ export default {
     createTime: 0,
     progress: 0,
     boss: false,
-    sealed: false
+    sealed: false,
+    deadMessage: false
   }),
   computed: {
     initialized() {
       return this.$store.state.initialized;
     },
     mouseHidden() {
-      return this.initialized && !this.sealed ? 'cursor:none;' : '';
+      return this.initialized && !this.sealed && !this.deadMessage ? 'cursor:none;' : '';
     },
     returnEnemyInit() {
       return this.$store.state.positions.enemiesInit;
+    },
+    returnChaosInit() {
+      return this.$store.state.positions.chaosInit;
     },
     returnMessInit() {
       return this.$store.state.positions.messes;
@@ -125,10 +142,13 @@ export default {
       const target = this.$refs.game;
       this.setBoxSize(target.clientWidth, target.clientHeight);
       this.$store.commit("activeGame");
+      this.$store.commit("resetHeart");
       this.$store.commit("setLevel", 1);
       this.$store.commit("addScores", 0);
       this.progress = 0;
+      this.deadMessage = false;
       this.createTime = Date.now();
+      this.enemyExecutor();
       this.musicPlayer.choose(Music.BadApple.key);
       setTimeout(() => this.musicPlayer.play(), 1000);
     },
@@ -223,8 +243,11 @@ export default {
       );
     },
     enemyExecutor() {
-      const currentTime = Date.now();
-      const time = Math.floor((currentTime - this.createTime) / 100);
+      if (this.$store.state.heart < 1) {
+        return;
+      }
+      const timestamp = Date.now();
+      const time = Math.floor((timestamp - this.createTime) / 100);
       if (time in this.levelData && time > this.progress) {
         this.progress = time;
         if (this.levelData[time] === true && this.boss === true) {
@@ -237,14 +260,18 @@ export default {
           setTimeout(() => this.musicPlayer.play(), 1000);
         } else {
           this.levelData[time].forEach(
-              enemy => this.$store.dispatch("newEnemy", {timestamp: time, data: enemy})
+              data => this.$store.dispatch("newEnemy", {timestamp, data})
           );
         }
       }
+      setTimeout(this.enemyExecutor, 10);
     },
     flush() {
       this.$forceUpdate();
-      this.enemyExecutor();
+      if (this.$store.state.heart < 1 && !this.deadMessage) {
+        this.deadMessage = true;
+        setTimeout(() => this.musicPlayer.stop(), 3000);
+      }
       window.requestAnimationFrame(this.flush);
     }
   },
@@ -278,6 +305,14 @@ a {
 
 .result-box {
   top: 0;
+}
+
+.dead-box {
+  top: 250px;
+}
+
+.dead-box h1 {
+  background: #d30;
 }
 
 @keyframes banner-show {

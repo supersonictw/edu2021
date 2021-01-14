@@ -23,7 +23,9 @@ export default {
   methods: {
     async move() {
       if (this.progress > -1 && this.progress < 1) {
-        this.setPosition(...this.initData.router(this.progress));
+        const computedPosition = this.initData.router(this.progress);
+        this.setPosition(...computedPosition);
+        this.chaosHandler(this.progress, ...computedPosition);
         this.progress += 0.01;
         window.requestAnimationFrame(this.move);
       } else {
@@ -34,17 +36,30 @@ export default {
       this.top = top * this.$store.state.boxHeight;
       this.left = left * this.$store.state.boxWidth - 30;
     },
+    chaosHandler(progress, top, left) {
+      const status = Number(progress).toFixed(2).toString();
+      if (status in this.initData.chaos) {
+        this.initData.chaos[status].forEach(
+            (router, index) =>
+                this.$store.dispatch("newChaos", {
+                  operator: `${this.hashSign}_${index}`,
+                  info: [top, left],
+                  router
+                })
+        );
+      }
+    },
     async ping() {
       const messList = this.$store.state.positions.messes;
-      const top = this.top;
-      const left = this.left;
-      this.checkAlive(messList, top, left);
+      this.checkAlive(messList, this.top, this.left);
       if (this.progress > -1 && this.progress < 1) {
         window.requestAnimationFrame(this.ping);
       }
     },
     checkAlive(messList, top, left) {
-      const stmt = (mess) => mess.top < top && (mess.left + Constant.AIM_PREFIX >= left && mess.left <= left + 30);
+      const stmt = (mess) =>
+          mess.top < top &&
+          (mess.left <= left + 30 && mess.left + Constant.AIM_PREFIX >= left);
       const seal = Object.values(messList).findIndex(stmt);
       if (seal > -1) {
         this.progress = -1;

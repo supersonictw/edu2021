@@ -11,6 +11,7 @@ Vue.use(Vuex);
 const Store = new Vuex.Store({
     state: {
         initialized: false,
+        heart: Constant.HEART,
         keyPool: {},
         boxWidth: 0,
         boxHeight: 0,
@@ -20,7 +21,8 @@ const Store = new Vuex.Store({
                 left: 1
             },
             messes: {},
-            enemiesInit: {}
+            enemiesInit: {},
+            chaosInit: {}
         },
         currentLevel: 0,
         scores: {}
@@ -31,6 +33,16 @@ const Store = new Vuex.Store({
         },
         inactiveGame: (state) => {
             state.initialized = false;
+            state.positions.messes = {}
+            state.positions.keyPool = {}
+            state.positions.chaosInit = {}
+            state.positions.enemiesInit = {}
+        },
+        resetHeart: (state) => {
+            state.heart = Constant.HEART;
+        },
+        lostHeart: (state) => {
+            state.heart--;
         },
         setLevel: (state, level) => {
             if (level > 0 && level <= Constant.MAX_LEVEL) {
@@ -87,6 +99,16 @@ const Store = new Vuex.Store({
         },
         unregisterEnemy: (state, hashSign) => {
             delete state.positions.enemiesInit[hashSign];
+        },
+        generateChaos: (state, {hashSign, data}) => {
+            state.positions.chaosInit[hashSign] = data;
+        },
+        updateChaos: (state, {hashSign, top, left}) => {
+            state.positions.chaosInit[hashSign].top = top;
+            state.positions.chaosInit[hashSign].left = left;
+        },
+        revokeChaos: (state, hashSign) => {
+            delete state.positions.chaosInit[hashSign];
         }
     },
     actions: {
@@ -119,8 +141,13 @@ const Store = new Vuex.Store({
             commit("generateMess", uuid);
         },
         newEnemy({commit}, {timestamp, data}) {
-            const hashSign = sha256(`${timestamp}_${JSON.stringify(data)}`);
+            const hashSign = "enemy_" + sha256(`${timestamp}_${JSON.stringify(data)}`);
             commit("registerEnemy", {hashSign, data});
+        },
+        newChaos({commit}, {operator, info, router}) {
+            const hashSign = "chaos_" + sha256(`${operator}_${JSON.stringify(info)}_${JSON.stringify(router)}`);
+            const data = {info, router};
+            commit("generateChaos", {hashSign, data});
         }
     }
 });
