@@ -6,12 +6,12 @@ const Music = {
     BadApple: {
         key: "BadApple",
         midi: BadApple,
-        opus: "static/audio/level/one/opus/bad_apple.opus"
+        opus: new Tone.Player("static/audio/level/one/opus/bad_apple.opus").toDestination()
     },
     UNOwenWasHer: {
         key: "UNOwenWasHer",
         midi: UNOwenWasHer,
-        opus: "static/audio/level/one/opus/un_owen_was_her.opus"
+        opus: new Tone.Player("static/audio/level/one/opus/un_owen_was_her.opus").toDestination()
     },
 }
 
@@ -58,8 +58,12 @@ MusicPlayer.prototype = {
         }
     },
     _playOpus() {
-        this.playing = new Tone.Player(this.music.opus).toDestination();
-        this.playing.autostart = true;
+        this.playing = this.music.opus;
+        if (this.playing.loaded) {
+            this.playing.play();
+        } else {
+            this.playing.autostart = true;
+        }
     },
     stop() {
         if (!this.playing) {
@@ -86,4 +90,7 @@ MusicPlayer.prototype = {
     }
 }
 
-export {MusicPlayer, Music};
+export {
+    MusicPlayer,
+    Music
+};
