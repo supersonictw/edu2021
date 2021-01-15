@@ -13,6 +13,7 @@
           <div v-else>
             <div class="button" @click="initialize">Start</div>
             <div class="button" @click="showOptions">Options</div>
+            <div class="button" @click="guide">Guide</div>
             <div class="button" @click="about">About</div>
           </div>
         </div>
@@ -154,6 +155,10 @@ export default {
     },
     showOptions() {
       this.displayOptions = !this.displayOptions;
+    },
+    guide() {
+      const target = "https://github.com/supersonictw/edu2021/blob/main/GUIDE.md";
+      location.assign(target);
     },
     about() {
       const target = "https://github.com/supersonictw/edu2021/blob/main/ABOUT.md";
