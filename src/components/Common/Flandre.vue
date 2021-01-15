@@ -118,6 +118,7 @@ export default {
     window.removeEventListener("touchmove", this.touchMoveEvent);
     window.removeEventListener("touchend", this.touchEndEvent);
     this.$store.commit("clearAllKeys");
+    this.touchShoot = false;
   }
 }
 </script>
