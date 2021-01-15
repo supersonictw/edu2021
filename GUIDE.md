@@ -10,6 +10,7 @@
 
 - Press `z` for shoting.
 - Press direction keys for moving.
+- Keep pressing `shift` to slow your steps.
 
 ## Mobile/Table
 
