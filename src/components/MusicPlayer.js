@@ -60,7 +60,7 @@ MusicPlayer.prototype = {
     _playOpus() {
         this.playing = this.music.opus;
         if (this.playing.loaded) {
-            this.playing.play();
+            this.playing.start();
         } else {
             this.playing.autostart = true;
         }
