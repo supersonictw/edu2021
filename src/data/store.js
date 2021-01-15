@@ -67,7 +67,7 @@ const Store = new Vuex.Store({
             delete state.keyPool[key];
         },
         clearAllKeys: (state) => {
-            state.positions.keyPool = {}
+            state.keyPool = {}
         },
         setBoxSize: (state, {width, height}) => {
             state.boxWidth = width;
