@@ -1,6 +1,6 @@
 # 東方夜魔傳（東方闇魔伝） Guide
 
-> The one who you're controlling is `Flandre Scarlet`, she is a vampire of `Koumakan`.
+> The one who you're controlling is `Flandre Scarlet`, she is a vampire of `Scarlet Devil Mansion`.
 
 > The white balls is `Enemy`, your `Mess`(bullet) can kill it,
 >
