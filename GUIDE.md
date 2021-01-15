@@ -8,7 +8,7 @@
 
 ## PC
 
-- Press `z` for shoting.
+- Press `z` for shooting.
 - Press direction keys for moving.
 - Keep pressing `shift` to slow your steps.
 
