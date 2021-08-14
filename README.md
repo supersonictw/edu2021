@@ -10,7 +10,7 @@ Pay tribute to `東方紅魔鄉 ～ the Embodiment of Scarlet Devil`.
 
 Build Status:
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ee52cf35-9073-46e1-b767-7a0f2a17ba2c/deploy-status)](https://app.netlify.com/sites/edu2021/deploys)
+[![GitHub Page Status](https://github.com/supersonictw/edu2021/actions/workflows/main.yml/badge.svg)](https://github.com/supersonictw/edu2021/actions/workflows/main.yml)
 
 Game:
 
