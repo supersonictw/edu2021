@@ -14,7 +14,7 @@ Build Status:
 
 Game:
 
-<https://touhou.randychen.tk>
+<http://shiranui.xyz/edu2021/>
 
 ## Project setup
 ```
